@@ -14,12 +14,14 @@ header
 {
     width : 100%;
     height : 65px;
-    background-color: blue;
-    opacity: 0.5;
 
     position : fixed;
     top : 0;
     left : 0;
+    z-index: 100;
+
+    background-color: blue;
+    box-shadow: rgba(0,0,0,0.3) 0px 0px 7px;
 
 }
 
@@ -47,26 +49,78 @@ header
     top : 65px;
     left : 0;
     
-    background-color: red;
+
     width : 300px;
     height : calc(100vh - 65px);
 
     margin: 0;
+    padding : 50px 20px 10px 20px;
 
     box-sizing: border-box;
-    padding-top: 65px;
+    background-color: red;
+    border-right: rgba(0,0,0,0.3);
 }
+
+#side img
+{
+    width : 130px;
+    border-radius: calc(130px / 2);
+    display : block;
+    margin: 0 auto;
+}
+
+#circle-info
+{
+    margin-top: 30px;
+    max-height: 300px;
+
+}
+
+#circle-name
+{
+    font-size: larger;
+}
+
+.acce-square
+{
+    width : 3px;
+    height: 20px;
+
+    margin-right: 10px;
+
+    float:left;
+    background-color: blueviolet;
+}
+
+#circle-text-wrapper
+{
+    margin-top: 10px;
+    color: white;
+}
+
+#circle-subdata
+{
+    margin-top: 20px;
+}
+.circle-subdata-link
+{
+    display: inline-block;
+
+}
+
 
 #timeline
 {
     /*サイドバー、ヘッダーの分だけmargin*/
     margin : 65px 0 0 300px;
-    padding: 5px;
+    padding-top: 40px;
+    padding-left: 40px;
 
-    width : calc(100vw - 300px);
+    min-width: calc(600px + 40px);
+
 
     background-color : green;
-    
+    box-sizing: border-box;
 }
 
 /*Schedule*/
@@ -74,8 +128,14 @@ header
 {
     display:block;
 
+    margin-bottom : 20px;
+
     height : 120px;
+    width: 600px;
 
 
+
+    border-radius: 10px;
+    box-shadow: rgba(0,0,0,0.3) 0px 0px 7px;
     background-color: brown;
 }
