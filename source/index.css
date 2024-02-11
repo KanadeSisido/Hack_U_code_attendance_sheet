@@ -58,7 +58,7 @@ header
 
     box-sizing: border-box;
     background-color: #f5f5f5;
-    border-right: rgba(0,0,0,0.3);
+    box-shadow: rgba(0,0,0,0.1) 0px 0px 10px;
     z-index: 50;
 }
 
@@ -224,7 +224,7 @@ header
     color:#333333;
     line-height: 120px;
 
-    background-color: #6693ca;
+    background: linear-gradient(to right,#3a7abb,#6693ca);
 
     transition: 200ms;
 }
