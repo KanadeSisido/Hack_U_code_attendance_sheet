@@ -224,7 +224,7 @@ header
     color:#333333;
     line-height: 120px;
 
-    background: linear-gradient(to right,#3a7abb,#6693ca);
+    background-color:#6693ca;
 
     transition: 200ms;
 }
