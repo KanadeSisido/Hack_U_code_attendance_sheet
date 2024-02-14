@@ -17,12 +17,20 @@ header{
     padding-left: 20px;
 }
 
+#table1{
+    width: 800px;
+    height: 250px;
+    table-layout: fixed;
+}
+
 table th{
     padding: 100px;
 }
 
 table td{
-    padding: 6px 100px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    text-align: center;
 }
 
 table tr{
