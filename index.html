@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>Circle / JOYN</title>
         <link rel="stylesheet" href="source/index.css">
+        <script type="module" src="source/index.js"></script>
     </head>
     <body>
         <header>
@@ -22,15 +23,15 @@
                 <div id="circle-info">
                     
                     <div class="acce-square"></div>
-                    <p id="circle-name">△△大学　雪だるま部</p>
+                    <p id="circle-name"></p>
                     
                     <div id="circle-text-wrapper">
-                        <p id="circle-text">雪だるまを制作します！新入部員募集中！新歓もやってます！活動は年に2日ほどです！！</p>    
+                        <p id="circle-text"></p>    
                     </div>
 
                     <div id="circle-subdata">
-                        <a class="circle-subdata-link" href="https://www.google.com/maps/search/%E6%9D%B1%E4%BA%AC%E9%83%BD%E7%AB%8B%E5%A4%A7%E5%AD%A6">Sankaku Sankaku University</a>
-                        <a class="circle-subdata-link" href="#">yukidaruma_circle@example.com</a>
+                        <a class="circle-subdata-link" id="circle-place" href="#"></a>
+                        <p id="circle-email" href="#"></a>
                     </div>
 
                
@@ -39,107 +40,12 @@
 
             <div id="timeline">
 
-                <div class="schedule">
-
-                    <div class="schedule-left">
-                        <a class="schedule-link" href="#"></a>
-                        <a class="schedule-title" href="#">雪だるま部　きれいな丸の作り方レクチャー</a>
-                        <div class="schedule-subdata">
-                            <a class="schedule-subdata-child" href="#">12:00~</a>
-                            <a class="schedule-subdata-child" href="#">大学広場</a>
-                        </div>
-                    </div>
-
-                    <div class="schedule-right">
-                        <a class="schedule-join" href="#">参加</a>
-                    </div>
-
-                </div>
-
-                <div class="schedule">
-
-                    <div class="schedule-left">
-                        <a class="schedule-link" href="#"></a>
-                        <a class="schedule-title" href="#">雪だるま部　きれいな丸の作り方レクチャー</a>
-                        <div class="schedule-subdata">
-                            <a class="schedule-subdata-child" href="#">12:00~</a>
-                            <a class="schedule-subdata-child" href="#">大学広場</a>
-                        </div>
-                    </div>
-
-                    <div class="schedule-right">
-                        <a class="schedule-join" href="#">参加</a>
-                    </div>
-
-                </div>
-                <div class="schedule">
-
-                    <div class="schedule-left">
-                        <a class="schedule-link" href="#"></a>
-                        <a class="schedule-title" href="#">雪だるま部　きれいな丸の作り方レクチャー</a>
-                        <div class="schedule-subdata">
-                            <a class="schedule-subdata-child" href="#">12:00~</a>
-                            <a class="schedule-subdata-child" href="#">大学広場</a>
-                        </div>
-                    </div>
-
-                    <div class="schedule-right">
-                        <a class="schedule-join" href="#">参加</a>
-                    </div>
-
-                </div>
-                <div class="schedule">
-
-                    <div class="schedule-left">
-                        <a class="schedule-link" href="#"></a>
-                        <a class="schedule-title" href="#">雪だるま部　きれいな丸の作り方レクチャー</a>
-                        <div class="schedule-subdata">
-                            <a class="schedule-subdata-child" href="#">12:00~</a>
-                            <a class="schedule-subdata-child" href="#">大学広場</a>
-                        </div>
-                    </div>
-
-                    <div class="schedule-right">
-                        <a class="schedule-join" href="#">参加</a>
-                    </div>
-
-                </div>
-                <div class="schedule">
-
-                    <div class="schedule-left">
-                        <a class="schedule-link" href="#"></a>
-                        <a class="schedule-title" href="#">雪だるま部　きれいな丸の作り方レクチャー</a>
-                        <div class="schedule-subdata">
-                            <a class="schedule-subdata-child" href="#">12:00~</a>
-                            <a class="schedule-subdata-child" href="#">大学広場</a>
-                        </div>
-                    </div>
-
-                    <div class="schedule-right">
-                        <a class="schedule-join" href="#">参加</a>
-                    </div>
-
-                </div>
-                <div class="schedule">
-
-                    <div class="schedule-left">
-                        <a class="schedule-link" href="#"></a>
-                        <a class="schedule-title" href="#">雪だるま部　きれいな丸の作り方レクチャー</a>
-                        <div class="schedule-subdata">
-                            <a class="schedule-subdata-child" href="#">12:00~</a>
-                            <a class="schedule-subdata-child" href="#">大学広場</a>
-                        </div>
-                    </div>
-
-                    <div class="schedule-right">
-                        <a class="schedule-join" href="#">参加</a>
-                    </div>
-
-                </div>
-
 
             </div>
 
+            <a id="create-new-schedule" href="#">
+                +
+            </a>
 
         </div>
     </body>
