@@ -50,12 +50,12 @@ async function main()
     const end_dateObj = new Date(endtime_date);
     
 
-    //mapに全ユーザの'YES/NO'フィールドを作成（初期値はUnselected）
-    let members = new Map();
+    //mapに全ユーザの'YES/NO'フィールドを作成（初期値はUnselected）＃MAPの送信
+    let members = {};
 
-    for(let i = 0; i < club_members.length; i++)
+    for (let i = 0; i < club_members.length; i++)
     {
-      members.set(club_members[i], 'Unselected');
+      members[club_members[i].path.replace('Users/','')] = 'Unselected';
     }
 
     //送信するデータ
@@ -65,7 +65,6 @@ async function main()
         'schedule-info' : info.value,
         'schedule-place' : place.value,
         'schedule-inittime' : init_dateObj,
-        'schedule-endtime' : end_dateObj,
         'schedule-status' : members
     };
 
