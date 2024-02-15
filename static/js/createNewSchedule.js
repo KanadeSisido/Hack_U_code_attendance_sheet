@@ -66,7 +66,6 @@ async function main()
         'schedule-place' : place.value,
         'schedule-inittime' : init_dateObj,
         'schedule-endtime' : end_dateObj,
-        'schedule-status' : members
 
     };
 
