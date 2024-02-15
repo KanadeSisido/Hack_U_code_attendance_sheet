@@ -21,6 +21,7 @@ const place = document.getElementById("schedule-place");
 const inittime = document.getElementById("schedule-inittime");
 const endtime = document.getElementById("schedule-endtime");
 
+const member_container = document.getElementById("member-Container");
 
 //Firebaseを起動
 const app = initializeApp(firebaseConfig);
@@ -39,10 +40,30 @@ async function main()
   const clubDocSnap = await getDoc(clubDocRef);
   const club = clubDocSnap.data();
   const club_members = club["member"];
+
+  //メンバーの名前を格納した配列
+  const club_members_names = Object.keys(club_members);
+
+    console.log(club_members_names);
+
+    for (let i = 0; i < club_members_names.length; i++)
+    {
+      const label = document.createElement('label');
+      label.htmlFor = club_members_names[i];
+      label.appendChild(document.createTextNode(club_members_names[i]));
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.id = club_members_names[i];
+      checkbox.value = club_members_names[i];
+
+      member_container.appendChild(checkbox);
+      member_container.appendChild(label);
+    }
   
 
   //送信するとき
-  form.addEventListener('submit',async e =>{
+  form.addEventListener('submit', async e =>{
     
     e.preventDefault();
 
@@ -61,9 +82,9 @@ async function main()
       //mapに全ユーザの'YES/NO'フィールドを作成（初期値はUnselected）＃MAPの送信
       let members = {};
 
-      for (let i = 0; i < club_members.length; i++)
+      for (let i = 0; i < club_members_names.length; i++)
       {
-        members[club_members[i].path.replace('Users/','')] = 'Unselected';
+        members[club_members[club_members_names[i]].path.replace('Users/','')] = 'Unselected';
       }
 
 
