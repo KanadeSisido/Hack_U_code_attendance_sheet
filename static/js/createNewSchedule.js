@@ -2,7 +2,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.4.0/firebas
         
 // Add Firebase products that you want to use
 import { getAuth } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js'
-import { getFirestore, addDoc, collection, doc,getDoc} from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js'
+import { getFirestore, addDoc, collection, doc, getDoc, updateDoc, arrayUnion} from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js'
 
 const firebaseConfig = {
   apiKey: "AIzaSyDpbefZcWetdrfr2mwgV8JVZXyezBVgV6g",
@@ -69,7 +69,11 @@ async function main()
     };
 
     //送信
-    addDoc(collection(db, 'Schedules'),NewSchedule);
+    const docref = await addDoc(collection(db, 'Schedules'),NewSchedule);
+    
+    await updateDoc(clubDocRef,{
+      'club-schedules': arrayUnion(docref)
+    });
 
   });
 
