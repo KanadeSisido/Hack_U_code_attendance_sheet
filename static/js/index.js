@@ -124,7 +124,7 @@ async function main()
 
         }
 
-        create_schedule.setAttribute("href","create.html?ID="+ClubID);
+        create_schedule.setAttribute("href","createNewSchedule.html?ID="+ClubID);
         
 
         
