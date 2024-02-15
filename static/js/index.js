@@ -2,7 +2,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.4.0/firebas
         
 // Add Firebase products that you want to use
 import { getAuth } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js'
-import { getFirestore, addDoc, collection, doc,getDoc} from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js'
+import { getFirestore, addDoc, collection, doc,getDoc,updateDoc} from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -54,12 +54,11 @@ async function main()
         circle_name.innerText = club["club-name"];
         circle_text.innerText = club["club-info"];
         circle_place.innerText = club["club-place"];
-        circle_place.href = "https://www.google.com/maps/search/" + club["club-place"]
+        circle_place.href = "https://www.google.com/maps/search/" + club["club-place"];
         circle_email.innerText = club["club-email"];
 
-        //Scheduleを作成する
+        //Scheduleを表示する
         const schedules = club["club-schedules"];
-        console.log(schedules.length);
         
         for (let i = 0; i < schedules.length; i++)
         {
@@ -90,6 +89,7 @@ async function main()
 
             const tl_schedule_join = document.createElement('a');
             tl_schedule_join.setAttribute("class","schedule-join");
+           
 
             //schedules = club["club-schedules"] は参照型が入った配列
             //schedules[i]はスケジュールへの参照（reference型）
@@ -112,15 +112,16 @@ async function main()
 
             tl_schedule_title.innerText = schedule_data["schedule-name"];
 
-            const date_init = schedule_data["schedule-inittime"].toDate()
+            const date_init = schedule_data["schedule-inittime"].toDate();
 
-            tl_schedule_date.innerText = date_init.toLocaleDateString() + " " + date_init.getHours().toString() + ":" + date_init.getMinutes().toString();
+            tl_schedule_date.innerText = date_init.toLocaleDateString() + " " + date_init.getHours().toString() + ":" + date_init.getMinutes().toString()+"~";
             tl_schedule_place.innerText = schedule_data["schedule-place"];
 
 
             tl_schedule_link.setAttribute("href","circle.html?ID=" + schedule_ID);
             tl_schedule_title.setAttribute("href","circle.html?ID=" + schedule_ID);
             tl_schedule_place.setAttribute("href","https://www.google.com/maps/search/"+schedule_data["schedule-place"]);
+            tl_schedule_join.setAttribute("href","circle.html?ID=" + schedule_ID);
 
         }
 

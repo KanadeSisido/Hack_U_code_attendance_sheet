@@ -262,3 +262,8 @@ header
     text-decoration: none;
     color:#ebebeb;
 }
+
+button
+{
+    border: none;
+}

@@ -13,7 +13,7 @@ const firebaseConfig = {
   appId: "1:1004038643973:web:2a19503d2b0ade6e20576c"
 };
 
-
+//formの要素を取得する
 const form = document.getElementById("create-schedule");
 const name = document.getElementById("schedule-name");
 const info = document.getElementById("schedule-info");
@@ -21,8 +21,11 @@ const place = document.getElementById("schedule-place");
 const inittime = document.getElementById("schedule-inittime");
 const endtime = document.getElementById("schedule-endtime");
 
+
+//Firebaseを起動
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
 
 async function main()
 {
@@ -38,45 +41,55 @@ async function main()
   const club_members = club["member"];
   
 
+  //送信するとき
   form.addEventListener('submit',async e =>{
     
     e.preventDefault();
 
-    //フォームからデータ取得
+    //フォームから時刻データ取得＋Firebaseに対応したDate型に変換
     const inittime_date = inittime.value;
     const init_dateObj = new Date(inittime_date);
 
     const endtime_date = endtime.value;
     const end_dateObj = new Date(endtime_date);
-    
 
-    //mapに全ユーザの'YES/NO'フィールドを作成（初期値はUnselected）＃MAPの送信
-    let members = {};
 
-    for (let i = 0; i < club_members.length; i++)
+    //必要なデータがすべて入力されているか？
+    if(name.value && info.value && place.value && inittime.value)
     {
-      members[club_members[i].path.replace('Users/','')] = 'Unselected';
+
+      //mapに全ユーザの'YES/NO'フィールドを作成（初期値はUnselected）＃MAPの送信
+      let members = {};
+
+      for (let i = 0; i < club_members.length; i++)
+      {
+        members[club_members[i].path.replace('Users/','')] = 'Unselected';
+      }
+
+
+      //送信するデータ
+      const NewSchedule = 
+      {
+          'schedule-name' : name.value,
+          'schedule-info' : info.value,
+          'schedule-place' : place.value,
+          'schedule-inittime' : init_dateObj,
+          'schedule-status' : members
+      };
+
+
+      //送信
+      const docref = await addDoc(collection(db, 'Schedules'),NewSchedule);
+
+      await updateDoc(clubDocRef,{
+        'club-schedules': arrayUnion(docref)
+      });
+
+      //Formのリセット
+      form.reset();
     }
 
-    //送信するデータ
-    const NewSchedule = 
-    {
-        'schedule-name' : name.value,
-        'schedule-info' : info.value,
-        'schedule-place' : place.value,
-        'schedule-inittime' : init_dateObj,
-        'schedule-status' : members
-    };
-
-    //送信
-    const docref = await addDoc(collection(db, 'Schedules'),NewSchedule);
-    
-    await updateDoc(clubDocRef,{
-      'club-schedules': arrayUnion(docref)
-    });
-
   });
-
 
 }
 main();
