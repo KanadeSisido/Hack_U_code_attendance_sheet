@@ -8,15 +8,18 @@ import { getFirestore, addDoc, collection, doc,getDoc} from 'https://www.gstatic
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAruPRcOsun0zfZSAKcLbLXLrjg_ejRtyg",
-  authDomain: "fir-web-codelab-cc19d.firebaseapp.com",
-  projectId: "fir-web-codelab-cc19d",
-  storageBucket: "fir-web-codelab-cc19d.appspot.com",
-  messagingSenderId: "575906656285",
-  appId: "1:575906656285:web:e2e2f36620c832502956f4"
-};
+    apiKey: "AIzaSyDpbefZcWetdrfr2mwgV8JVZXyezBVgV6g",
+    authDomain: "joyn-85ed1.firebaseapp.com",
+    projectId: "joyn-85ed1",
+    storageBucket: "joyn-85ed1.appspot.com",
+    messagingSenderId: "1004038643973",
+    appId: "1:1004038643973:web:2a19503d2b0ade6e20576c"
+  };
 
-const ClubID = "thUNgcczudp9oFvA1ajj";
+
+const url = window.location.search;
+const Params = new URLSearchParams(url);
+const ClubID = Params.get("ID");
 
 //side
 const circle_name = document.getElementById("circle-name");
@@ -85,8 +88,12 @@ async function main()
         
         for (let i = 0; i < schedules.length; i++)
         {
-            const schedule = await getDoc(schedules[0]);
-            const schedule_data = schedule.data()
+            //schedules = club["club-schedules"] は参照型が入った配列
+            //schedules[i]はスケジュールへの参照（reference型）
+            //getDocでreference型からdocumentを取得
+            const schedule = await getDoc(schedules[i]);
+            const schedule_data = schedule.data();
+            const schedule_ID = schedules[i].path.replace('Schedules/','');
 
             tl_schedule_subdata.appendChild(tl_schedule_date);
             tl_schedule_subdata.appendChild(tl_schedule_place);
@@ -101,25 +108,25 @@ async function main()
             tl_schedule.appendChild(tl_schedule_right);
 
             tl_schedule_title.innerText = schedule_data["schedule-name"];
-            tl_schedule_date.innerText = schedule_data["schedule-date"];
+
+            const date_init = schedule_data["schedule-inittime"].toDate()
+
+            tl_schedule_date.innerText = date_init.toLocaleDateString() + " " + date_init.getHours().toString() + ":" + date_init.getMinutes().toString();
             tl_schedule_place.innerText = schedule_data["schedule-place"];
 
 
-            tl_schedule_link.setAttribute("href","circle.html?id="+schedule_data["scheduleId"]);
-            tl_schedule_title.setAttribute("href","circle.html?id="+schedule_data["scheduleId"]);
+            tl_schedule_link.setAttribute("href","circle.html?ID=" + schedule_ID);
+            tl_schedule_title.setAttribute("href","circle.html?ID=" + schedule_ID);
             tl_schedule_place.setAttribute("href","https://www.google.com/maps/search/"+schedule_data["schedule-place"]);
             
-            create_schedule.setAttribute("href","create.html?ID:"+ClubID);
+            create_schedule.setAttribute("href","create.html?ID="+ClubID);
+
 
         }
         
 
         
 
-    }
-    else
-    {
-        alert("Circle Not Found Error");
     }
 
     
