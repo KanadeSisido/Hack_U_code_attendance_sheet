@@ -56,9 +56,15 @@ async function main()
       checkbox.type = 'checkbox';
       checkbox.id = club_members_names[i];
       checkbox.value = club_members_names[i];
+      
+      const wrapper = document.createElement('div');
 
-      member_container.appendChild(checkbox);
-      member_container.appendChild(label);
+      wrapper.appendChild(checkbox);
+      wrapper.appendChild(label);
+      
+      member_container.appendChild(wrapper);
+      wrapper.setAttribute("class","member-wrapper")
+
     }
   
 
