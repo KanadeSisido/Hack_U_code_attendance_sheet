@@ -53,9 +53,9 @@ async function main()
     //mapに全ユーザの'YES/NO'フィールドを作成（初期値はUnselected）
     let members = new Map();
 
-    for(let i = 0; i < members.length; i++)
+    for(let i = 0; i < club_members.length; i++)
     {
-      members.set(members[i], 'Unselected');
+      members.set(club_members[i], 'Unselected');
     }
 
     //送信するデータ
@@ -66,7 +66,7 @@ async function main()
         'schedule-place' : place.value,
         'schedule-inittime' : init_dateObj,
         'schedule-endtime' : end_dateObj,
-
+        'schedule-status' : members
     };
 
     //送信
