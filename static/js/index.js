@@ -28,33 +28,7 @@ const circle_place = document.getElementById("circle-place");
 const circle_email = document.getElementById("circle-email");
 
 //timeline
-const timeline = document.getElementById("timeline");
-const tl_schedule = document.createElement('div');
-tl_schedule.setAttribute("class","schedule");
 
-const tl_schedule_left = document.createElement('div');
-tl_schedule_left.setAttribute("class","schedule-left");
-
-const tl_schedule_link = document.createElement('a');
-tl_schedule_link.setAttribute("class","schedule-link");
-
-const tl_schedule_title = document.createElement('a');
-tl_schedule_title.setAttribute("class","schedule-title");
-
-const tl_schedule_subdata = document.createElement('div');
-tl_schedule_subdata.setAttribute("class","schedule-subdata");
-
-const tl_schedule_date = document.createElement('p');
-tl_schedule_date.setAttribute("class","schedule-subdata-child");
-
-const tl_schedule_place = document.createElement('a');
-tl_schedule_place.setAttribute("class","schedule-subdata-child");
-
-const tl_schedule_right = document.createElement('div');
-tl_schedule_right.setAttribute("class","schedule-right");
-
-const tl_schedule_join = document.createElement('a');
-tl_schedule_join.setAttribute("class","schedule-join");
 
 //create new schedule
 const create_schedule = document.getElementById("create-new-schedule");
@@ -85,9 +59,38 @@ async function main()
 
         //Scheduleを作成する
         const schedules = club["club-schedules"];
+        console.log(schedules.length);
         
         for (let i = 0; i < schedules.length; i++)
         {
+            const timeline = document.getElementById("timeline");
+            const tl_schedule = document.createElement('div');
+            tl_schedule.setAttribute("class","schedule");
+
+            const tl_schedule_left = document.createElement('div');
+            tl_schedule_left.setAttribute("class","schedule-left");
+
+            const tl_schedule_link = document.createElement('a');
+            tl_schedule_link.setAttribute("class","schedule-link");
+
+            const tl_schedule_title = document.createElement('a');
+            tl_schedule_title.setAttribute("class","schedule-title");
+
+            const tl_schedule_subdata = document.createElement('div');
+            tl_schedule_subdata.setAttribute("class","schedule-subdata");
+
+            const tl_schedule_date = document.createElement('p');
+            tl_schedule_date.setAttribute("class","schedule-subdata-child");
+
+            const tl_schedule_place = document.createElement('a');
+            tl_schedule_place.setAttribute("class","schedule-subdata-child");
+
+            const tl_schedule_right = document.createElement('div');
+            tl_schedule_right.setAttribute("class","schedule-right");
+
+            const tl_schedule_join = document.createElement('a');
+            tl_schedule_join.setAttribute("class","schedule-join");
+
             //schedules = club["club-schedules"] は参照型が入った配列
             //schedules[i]はスケジュールへの参照（reference型）
             //getDocでreference型からdocumentを取得
@@ -118,11 +121,10 @@ async function main()
             tl_schedule_link.setAttribute("href","circle.html?ID=" + schedule_ID);
             tl_schedule_title.setAttribute("href","circle.html?ID=" + schedule_ID);
             tl_schedule_place.setAttribute("href","https://www.google.com/maps/search/"+schedule_data["schedule-place"]);
-            
-            create_schedule.setAttribute("href","create.html?ID="+ClubID);
-
 
         }
+
+        create_schedule.setAttribute("href","create.html?ID="+ClubID);
         
 
         
