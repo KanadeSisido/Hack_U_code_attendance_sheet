@@ -3,15 +3,6 @@ import { getAuth } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-auth
 import { getFirestore, addDoc, collection, doc, getDoc, updateDoc} from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js'
 
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyDpbefZcWetdrfr2mwgV8JVZXyezBVgV6g",
-    authDomain: "joyn-85ed1.firebaseapp.com",
-    projectId: "joyn-85ed1",
-    storageBucket: "joyn-85ed1.appspot.com",
-    messagingSenderId: "1004038643973",
-    appId: "1:1004038643973:web:2a19503d2b0ade6e20576c"
-  };
 
 
 const url = window.location.search;
@@ -35,7 +26,6 @@ const create_schedule = document.getElementById("create-new-schedule");
 async function main()
 {
    
-
     //Clubsへの参照
     const clubDocRef = doc(db, "Clubs", ClubID);
     const clubDocSnap = await getDoc(clubDocRef);
@@ -83,6 +73,7 @@ async function main()
 
             const tl_schedule_join = document.createElement('a');
             tl_schedule_join.setAttribute("class","schedule-join");
+            tl_schedule_join.textContent = "参加";
            
 
             //schedules = club["club-schedules"] は参照型が入った配列

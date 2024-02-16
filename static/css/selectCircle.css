@@ -26,6 +26,47 @@ header
 
 }
 
+#dashboard-wrapper
+{
+    margin-top: 100px;
+    padding: 0 100px;
+    height : 400px;
+
+}
+
+.background
+{
+    margin: 0 auto;
+
+    height : 100%;
+    width: 100%;
+
+    border-radius: 10px;
+    box-shadow: rgba(0,0,0,0.3) 0px 0px 7px;
+    background-color: #f5f5f5;
+}
+
+#login-left
+{
+    width: calc(50vw - 100px);
+    padding: 40px;
+
+    height: 100%;
+    float: left;
+    box-sizing: border-box;
+}
+
+#login-left h2
+{
+    color:#333333;
+}
+
+#login-left p
+{
+    color:#5c5c5c;
+}
+
+
 #header-wrapper
 {
     margin : 0 auto;
@@ -41,7 +82,7 @@ header
 {
     width: calc(100vw - 100px);
     height: calc(100vh - 100px);
-    margin: 100px 50px 0 50px;
+    margin: 100px 100px 0 100px;
 
     box-sizing: border-box;
 }
@@ -49,7 +90,6 @@ header
 .circle-wrapper
 {
     position: relative;
-    margin : 20px;
     height : 200px;
     width: 400px;
     float : left;

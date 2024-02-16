@@ -3,9 +3,10 @@
     <head>
         <meta charset="utf-8">
         <title>Home / JOYN</title>
+        
         <link rel="stylesheet" href="../static/css/selectCircle.css">
-        <script type="module" src="../static/js/importFirebase.js"></script>
         <script type="module" src="../static/js/selectCircle.js"></script>
+
     </head>
     <body>
         <header>
@@ -15,6 +16,79 @@
                 </div>
             </div>
         </header>
+
+        <div id="dashboard-wrapper">
+        
+            <div id="login" class="background">
+                <div id="login-left">
+                    <div id="logouted" style="display: none;">
+                        <h2>ログイン</h2>
+                        <p>ログインするとサービスを利用できます</p>
+                    </div>
+                    <div id="logined" style="display: none;">
+                        <h2 id="username"></h2>
+                        <button onclick="signout()">ログアウト</button>
+                    </div>
+                </div>
+
+                <div id="login-right">
+                    <div id="login-wrapper">
+                        <form id="login">
+
+                            <div class="login-form">
+                                <label for="email">Email : </label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+
+                            <div class="login-form">
+                                <label for="password">Password : </label>
+                                <input type="password" id="password" name="password" required>
+                            </div>
+
+                            <p id="error-code"></p>
+
+                            <button onclick="loginWithEmailAndPassword()">ログイン</button>
+                            
+                        </form>
+
+                    </div>
+
+                    <div id="signup-wrapper">
+
+                        <form id="signup">
+                            
+                            <div class="login-form">
+                                <label for="email-signup">Email : </label>
+                                <input type="email" id="email-signup" name="email-signup" required>
+                            </div>
+
+                            <div class="login-form">
+                                <label for="password-signup">Password : </label>
+                                <input type="password" id="password-signup" name="password-signup" required>
+                            </div>
+                            <div class="login-form">
+                                <label for="password-check-signup">Password : </label>
+                                <input type="password" id="password-check-signup" name="password-check-signup" required>
+                            </div>
+
+                            <div class="login-form">
+                                <label for="user-name-signup">UserName : </label>
+                                <input type="text" id="user-name-signup" name="user-name-signup" required>
+                            </div>
+
+                            <p id="error-code-signup"></p>
+
+                            <button onclick="makeWithEmailAndPassword()">アカウント作成</button>
+                            
+                        </form>
+
+                    </div>
+                    
+
+                </div>
+            </div>
+        
+        </div>
 
         <div id="circles-wrapper">
             
@@ -28,5 +102,6 @@
             
             
         </div>
+
     </body>
 </html>
