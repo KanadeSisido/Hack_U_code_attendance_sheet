@@ -1,8 +1,7 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js'
-        
-// Add Firebase products that you want to use
+import {db} from "./importFirebase.js";
 import { getAuth } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js'
 import { getFirestore, addDoc, collection, doc, getDoc, updateDoc, arrayUnion} from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js'
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyDpbefZcWetdrfr2mwgV8JVZXyezBVgV6g",
@@ -12,6 +11,7 @@ const firebaseConfig = {
   messagingSenderId: "1004038643973",
   appId: "1:1004038643973:web:2a19503d2b0ade6e20576c"
 };
+
 
 //formの要素を取得する
 const form = document.getElementById("create-schedule");
@@ -23,9 +23,7 @@ const endtime = document.getElementById("schedule-endtime");
 
 const member_container = document.getElementById("member-Container");
 
-//Firebaseを起動
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+
 
 
 async function main()

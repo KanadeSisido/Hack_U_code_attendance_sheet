@@ -1,10 +1,7 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js'
-        
-// Add Firebase products that you want to use
+import {db} from "./importFirebase.js";
 import { getAuth } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js'
-import { getFirestore, addDoc, collection, doc,getDoc,updateDoc} from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore, addDoc, collection, doc, getDoc, updateDoc} from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js'
+
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -33,9 +30,6 @@ const circle_email = document.getElementById("circle-email");
 //create new schedule
 const create_schedule = document.getElementById("create-new-schedule");
 
-//Firebase起動
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
 
 async function main()
