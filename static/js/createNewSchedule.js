@@ -23,7 +23,10 @@ const endtime = document.getElementById("schedule-endtime");
 
 const member_container = document.getElementById("member-Container");
 
+const open_member_button = document.getElementById("to-open-menu");
+const close_member_button = document.getElementById("to-close-menu");
 
+let member_option = "unselected";
 
 
 async function main()
@@ -44,6 +47,7 @@ async function main()
 
     console.log(club_members_names);
 
+    //メンバー全員を選択画面に表示する
     for (let i = 0; i < club_members_names.length; i++)
     {
       const label = document.createElement('label');
@@ -53,6 +57,7 @@ async function main()
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
       checkbox.id = club_members_names[i];
+      checkbox.className = "member-checkboxes";
       checkbox.value = club_members_names[i];
       
       const wrapper = document.createElement('div');
@@ -63,7 +68,28 @@ async function main()
       member_container.appendChild(wrapper);
       wrapper.setAttribute("class","member-wrapper")
 
-    }
+  }
+
+  //イベント参加者メニューを開く
+  open_member_button.addEventListener('click',()=>{
+    member_container.style.display = "block";
+    member_option = "select";
+
+    open_member_button.className = "open-menu-button open-menu-enable"
+    close_member_button.className = "open-menu-button open-menu-disable"
+
+  });
+
+  //閉じる
+  close_member_button.addEventListener('click',()=>{
+    member_container.style.display = "none";
+    member_option = "all";
+
+    close_member_button.className = "open-menu-button open-menu-enable"
+    open_member_button.className = "open-menu-button open-menu-disable"
+  });
+
+  
   
 
   //送信するとき
@@ -79,39 +105,71 @@ async function main()
     const end_dateObj = new Date(endtime_date);
 
 
+
     //必要なデータがすべて入力されているか？
-    if(name.value && info.value && place.value && inittime.value)
+    if(name.value && info.value && place.value && inittime.value && member_option != "unselected")
     {
 
-      //mapに全ユーザの'YES/NO'フィールドを作成（初期値はUnselected）＃MAPの送信
-      let members = {};
+      //チェックボックスの内容を読み取る   
+      let checkboxes = document.querySelectorAll('input[type="checkbox"].member-checkboxes:checked');
 
-      for (let i = 0; i < club_members_names.length; i++)
+      //参加者０人のイベントは作成できない
+      if (checkboxes.length > 0)
       {
-        members[club_members[club_members_names[i]].path.replace('Users/','')] = 'Unselected';
+          //mapにユーザの'YES/NO'フィールドを作成（初期値はUnselected）＃MAPの送信
+          let members = {};
+
+          let selected_members;
+
+          //全員の場合
+          if (member_option == "all")
+          {
+              selected_members = club_members_names;
+          }
+          //指定した人だけの場合
+          else if (member_option == "select")
+          {
+
+            selected_members = new Array(checkboxes.length);
+
+            for (let i = 0; i < checkboxes.length; i++)
+            {
+                selected_members[i] = checkboxes[i].id;
+            }
+          }
+          
+          //送信用のmapに書き込む
+          for (let i = 0; i < selected_members.length; i++)
+          {
+            
+            members[ club_members[ selected_members[i] ].path.replace('Users/','') ] = 'Unselected';
+            
+          }
+
+
+          //送信するデータ
+          const NewSchedule = 
+          {
+              'schedule-name' : name.value,
+              'schedule-info' : info.value,
+              'schedule-place' : place.value,
+              'schedule-inittime' : init_dateObj,
+              'schedule-status' : members
+          };
+
+
+          //送信
+          const docref = await addDoc(collection(db, 'Schedules'),NewSchedule);
+
+          await updateDoc(clubDocRef,{
+            'club-schedules': arrayUnion(docref)
+          });
+
+          //Formのリセット
+          form.reset();
       }
 
-
-      //送信するデータ
-      const NewSchedule = 
-      {
-          'schedule-name' : name.value,
-          'schedule-info' : info.value,
-          'schedule-place' : place.value,
-          'schedule-inittime' : init_dateObj,
-          'schedule-status' : members
-      };
-
-
-      //送信
-      const docref = await addDoc(collection(db, 'Schedules'),NewSchedule);
-
-      await updateDoc(clubDocRef,{
-        'club-schedules': arrayUnion(docref)
-      });
-
-      //Formのリセット
-      form.reset();
+      
     }
 
   });
