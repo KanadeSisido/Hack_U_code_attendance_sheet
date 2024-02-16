@@ -9,14 +9,21 @@ const error_message = document.getElementById("error-code");
 const signup_elem = document.getElementById('signup');
 const login_elem = document.getElementById('login');
 
+const login_ui = document.getElementById('login-right');
 const logined_elem = document.getElementById('logined');
 const logouted_elem = document.getElementById('logouted');
 
+const circles_wrapper = document.getElementById("circles-wrapper");
+
 let user_obj;
 
+//ログイン状態の確認
 onAuthStateChanged(auth, (user)=>{
+    
+    //ログイン済み
     if(user)
     {
+        login_ui.style.display = "none";
         logined_elem.style.display = "block";
         logouted_elem.style.display = "none";
 
@@ -115,10 +122,21 @@ async function main(userid)
     const UserRef = doc(db, 'Users', userid);
     const docSnap = await getDoc(UserRef);
 
-    console.log(docSnap["Clubs"]);
-    if (docSnap["Clubs"])
+    const clubs_data = docSnap.data()["Clubs"]
+
+    if (clubs_data)
     {
-        console.log("ok");
+        for(let i = 0; i < clubs_data.length; i++)
+        {
+            const clubSnap = await getDoc( clubs_data[i] );
+            const club_snap_data = clubSnap.data();
+
+            console.log( club_snap_data["club-info"]);
+            const club_elem = document.createElement("div");
+            club_elem.innerHTML = "<img class=\"circle-icon\" src=\"../resources/circle-icon.jpg\"><a class=\"circle\" href=\"./schedule/index.html?ID="+clubs_data[i].path.replace('Clubs/','')+"\"></a><a class=\"circle-name\" href=\"#\">" + club_snap_data["club-name"] + "</a><a class=\"circle-info\" href=\"#\">"+ club_snap_data["club-info"] +"</a>"
+            club_elem.setAttribute("class","circle-wrapper");
+            circles_wrapper.appendChild(club_elem);
+        }
     }
 }
 
