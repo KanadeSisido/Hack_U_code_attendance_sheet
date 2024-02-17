@@ -49,19 +49,23 @@ async function makeWithEmailAndPassword()
     const password_check = document.getElementById('password-check-signup').value;
     const user_name = document.getElementById('user-name-signup').value;
 
+    if(password == password_check)
+    {
+        const Credential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = Credential.user.uid;
+
+        const data = {
+            name : user_name
+        }
     
-    const Credential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = Credential.user.uid;
-
-
-    const data = {
-        name : user_name
+        const docref = doc(db, 'Users', user);
+    
+        await setDoc(docref, data);
     }
-
-    const docref = doc(db, 'Users', user );
-
-    await setDoc(docref, data);
-    
+    else
+    {
+        throw new Error("invalid password");
+    }
 
     document.getElementById('email-signup').value = "";
     document.getElementById('password-signup').value = "";
@@ -77,19 +81,14 @@ async function loginWithEmailAndPassword()
     event.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    const password_check = document.getElementById('password-check').value;
 
     try
     {
-        if(password == password_check)
-        {
-            const Credential = await signInWithEmailAndPassword(auth, email, password);
-            const user = Credential.user.uid;
-        }
-        else
-        {
-            throw new Error("invalid password");
-        }
+      
+        const Credential = await signInWithEmailAndPassword(auth, email, password);
+        const user = Credential.user.uid;
+        
+        
         
     }
     catch(error)
@@ -144,7 +143,7 @@ async function main(userid)
             club_elem.setAttribute("class","circle-wrapper");
             circles_wrapper.appendChild(club_elem);
         }
-        
+
     }
     catch(error)
     {
