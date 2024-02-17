@@ -6,16 +6,12 @@ import { getFirestore, addDoc,setDoc, collection, doc, getDoc, updateDoc, arrayU
 const auth = getAuth(app);
 const error_message = document.getElementById("error-code");
 
-const signup_elem = document.getElementById('signup');
-const login_elem = document.getElementById('login');
-
 const login_ui = document.getElementById('login-right');
 const logined_elem = document.getElementById('logined');
 const logouted_elem = document.getElementById('logouted');
 
 const circles_wrapper = document.getElementById("circles-wrapper");
 
-let user_obj;
 
 //ログイン状態の確認
 onAuthStateChanged(auth, (user)=>{
@@ -57,13 +53,14 @@ async function makeWithEmailAndPassword()
     const Credential = await createUserWithEmailAndPassword(auth, email, password);
     const user = Credential.user.uid;
 
-    const UserdocRef = doc(db, 'Users', user.uid );
 
     const data = {
         name : user_name
     }
 
-    await setDoc(UserdocRef,data);
+    const docref = doc(db, 'Users', user );
+
+    await setDoc(docref, data);
     
 
     document.getElementById('email-signup').value = "";
@@ -80,11 +77,20 @@ async function loginWithEmailAndPassword()
     event.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const password_check = document.getElementById('password-check').value;
 
     try
     {
-        const Credential = await signInWithEmailAndPassword(auth, email, password);
-        const user = Credential.user.uid;
+        if(password == password_check)
+        {
+            const Credential = await signInWithEmailAndPassword(auth, email, password);
+            const user = Credential.user.uid;
+        }
+        else
+        {
+            throw new Error("invalid password");
+        }
+        
     }
     catch(error)
     {
@@ -122,10 +128,11 @@ async function main(userid)
     const UserRef = doc(db, 'Users', userid);
     const docSnap = await getDoc(UserRef);
 
-    const clubs_data = docSnap.data()["Clubs"]
-
-    if (clubs_data)
+    try
     {
+        const clubs_data = docSnap.data()["Clubs"];
+
+
         for(let i = 0; i < clubs_data.length; i++)
         {
             const clubSnap = await getDoc( clubs_data[i] );
@@ -137,7 +144,14 @@ async function main(userid)
             club_elem.setAttribute("class","circle-wrapper");
             circles_wrapper.appendChild(club_elem);
         }
+        
     }
+    catch(error)
+    {
+
+    }
+    
+
 }
 
 const gray_button = document.getElementById("gray-button");
@@ -156,17 +170,19 @@ function show_join()
     join_button.style.display = "block";
 }
 
-const join_field = document.getElementById("join-field");
+
 
 async function join_circle()
 {
     onAuthStateChanged(auth,(user) => {
         if(user)
         {
-            const to_join_id = join_field.value;
 
+            const join_field = document.getElementById("join-field");
+            const to_join_id = join_field.value;
+            
             const ClubRef = doc(db, 'Clubs', to_join_id);
-            console.log(ClubRef.path);
+            
             const UserRef = doc(db, 'Users', user.uid);
 
             //ClubにUserを登録する
@@ -190,7 +206,9 @@ async function join_circle()
             
                 Clubs : arrayUnion(ClubRef)
             
-            })
+            });
+
+            join_field.value = "";
         }
 
         main(user.uid);
@@ -198,7 +216,7 @@ async function join_circle()
 
     show_gray();
 
-    join_field.value = "";
+    
 
     
 }
