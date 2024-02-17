@@ -1,5 +1,5 @@
-import {db} from "./importFirebase.js";
-import { getAuth } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js'
+import {db,app} from "./importFirebase.js";
+import { getAuth,onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js'
 import { getFirestore, addDoc, collection, doc, getDoc, updateDoc, arrayUnion} from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js'
 
 
@@ -12,6 +12,7 @@ const firebaseConfig = {
   appId: "1:1004038643973:web:2a19503d2b0ade6e20576c"
 };
 
+const auth = getAuth();
 
 //formの要素を取得する
 const form = document.getElementById("create-schedule");
@@ -19,7 +20,6 @@ const name = document.getElementById("schedule-name");
 const info = document.getElementById("schedule-info");
 const place = document.getElementById("schedule-place");
 const inittime = document.getElementById("schedule-inittime");
-const endtime = document.getElementById("schedule-endtime");
 
 const member_container = document.getElementById("member-Container");
 
@@ -31,16 +31,20 @@ let member_option = "unselected";
 
 async function main()
 {
+  
   //クエリからIDを手に入れる
   const url = window.location.search;
   const Params = new URLSearchParams(url);
   const ClubID = Params.get("ID");
 
+
   //DBからクラブの情報を手に入れる
   const clubDocRef = doc(db, "Clubs", ClubID);
   const clubDocSnap = await getDoc(clubDocRef);
   const club = clubDocSnap.data();
+  //Clubのメンバー取得
   const club_members = club["member"];
+
 
   //メンバーの名前を格納した配列
   const club_members_names = Object.keys(club_members);
@@ -101,20 +105,15 @@ async function main()
     const inittime_date = inittime.value;
     const init_dateObj = new Date(inittime_date);
 
-    const endtime_date = endtime.value;
-    const end_dateObj = new Date(endtime_date);
-
-
-
     //必要なデータがすべて入力されているか？
     if(name.value && info.value && place.value && inittime.value && member_option != "unselected")
     {
-
+      
       //チェックボックスの内容を読み取る   
       let checkboxes = document.querySelectorAll('input[type="checkbox"].member-checkboxes:checked');
 
       //参加者０人のイベントは作成できない
-      if (checkboxes.length > 0)
+      if (checkboxes.length > 0 || member_option == "all")
       {
           //mapにユーザの'YES/NO'フィールドを作成（初期値はUnselected）＃MAPの送信
           let members = {};
@@ -125,6 +124,7 @@ async function main()
           if (member_option == "all")
           {
               selected_members = club_members_names;
+                                                    console.log("all");
           }
           //指定した人だけの場合
           else if (member_option == "select")
@@ -138,35 +138,29 @@ async function main()
             }
           }
           
-          //送信用のmapに書き込む
-          for (let i = 0; i < selected_members.length; i++)
-          {
-            
-            members[ club_members[ selected_members[i] ].path.replace('Users/','') ] = 'Unselected';
-            
-          }
+          //ログイン状態を取得
+          onAuthStateChanged(auth,(user)=>{
+            console.log("auth");
+            console.log(user.displayName);
 
+            //送信用のmapに書き込む
+            for (let i = 0; i < selected_members.length; i++)
+            {
+              
+              members[ user.displayName ] = 'Unselected';
+              
+            }
 
-          //送信するデータ
-          const NewSchedule = 
-          {
-              'schedule-name' : name.value,
-              'schedule-info' : info.value,
-              'schedule-place' : place.value,
-              'schedule-inittime' : init_dateObj,
-              'schedule-status' : members
-          };
-
-
-          //送信
-          const docref = await addDoc(collection(db, 'Schedules'),NewSchedule);
-
-          await updateDoc(clubDocRef,{
-            'club-schedules': arrayUnion(docref)
+            //この後の処理を全部ここに丸投げする
+            a(members,init_dateObj,clubDocRef);
+          
           });
 
-          //Formのリセット
-          form.reset();
+          
+      }
+      else
+      {
+        alert("参加者は1人以上必要です");
       }
 
       
@@ -176,3 +170,30 @@ async function main()
 
 }
 main();
+
+
+async function a(members,init_dateObj,clubDocRef)
+{
+    //送信するデータ
+    const NewSchedule = 
+    {
+        'schedule-name' : name.value,
+        'schedule-info' : info.value,
+        'schedule-place' : place.value,
+        'schedule-inittime' : init_dateObj,
+        'schedule-status' : members
+    };
+
+
+    //送信
+    const docref = await addDoc(collection(db, 'Schedules'),NewSchedule);
+
+    await updateDoc(clubDocRef,{
+      'club-schedules': arrayUnion(docref)
+    });
+
+    //Formのリセット
+    form.reset();
+
+    console.log(members);
+}

@@ -1,5 +1,5 @@
 import {db, app} from "./importFirebase.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut} from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js'
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut,updateProfile} from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js'
 import { getFirestore, addDoc,setDoc, collection, doc, getDoc, updateDoc, arrayUnion} from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js'
 
 
@@ -19,18 +19,21 @@ onAuthStateChanged(auth, (user)=>{
     //ログイン済み
     if(user)
     {
+        //ログイン用のUIを消す＋通常のUIを表示
         login_ui.style.display = "none";
         logined_elem.style.display = "block";
         logouted_elem.style.display = "none";
 
+        //ログイン時はCircleたちを表示する
         circles_wrapper.style.display = "block";
+        
+        //Circleたちを読み込む
         main(user.uid);
         console.log("ログインしてます");
-        console.log(user.uid);
-
     }
     else
     {
+        //ログイン用の画面をつける＋通常のUIを消す
         logined_elem.style.display = "none";
         logouted_elem.style.display = "block";
         
@@ -44,29 +47,27 @@ async function makeWithEmailAndPassword()
     
     event.preventDefault();
 
+    //フォームの情報をとる
     const email = document.getElementById('email-signup').value;
     const password = document.getElementById('password-signup').value;
     const password_check = document.getElementById('password-check-signup').value;
     const user_name = document.getElementById('user-name-signup').value;
 
+    //Passwordのチェック
     if(password == password_check)
     {
+        //サインアップ処理
         const Credential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = Credential.user.uid;
-
-        const data = {
-            name : user_name
-        }
-    
-        const docref = doc(db, 'Users', user);
-    
-        await setDoc(docref, data);
+        const user = Credential.user;
+        //Usernameを設定する
+        await updateProfile(user, {displayName: user_name});
     }
     else
     {
         throw new Error("invalid password");
     }
 
+    //初期化
     document.getElementById('email-signup').value = "";
     document.getElementById('password-signup').value = "";
     document.getElementById('password-check-signup').value = "";
@@ -74,21 +75,18 @@ async function makeWithEmailAndPassword()
     
 }
 
+
 //ログイン
 async function loginWithEmailAndPassword()
 {
-    
     event.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
     try
     {
-      
+        //ログイン処理
         const Credential = await signInWithEmailAndPassword(auth, email, password);
-        const user = Credential.user.uid;
-        
-        
         
     }
     catch(error)
@@ -108,11 +106,15 @@ async function loginWithEmailAndPassword()
         console.log(error.code);
     }
 
+    //初期化
     document.getElementById('email').value = "";
     document.getElementById('password').value = "";
     
 }
 
+
+
+//サインアウト
 function signout()
 {
     signOut(auth).then(()=>{
@@ -121,17 +123,22 @@ function signout()
     location.reload();
 }
 
+
+
 //ログインしている場合、内容を読み込む
 async function main(userid)
 {
+    //Userが所属しているClubを取得するためにuseridで参照を取得する
     const UserRef = doc(db, 'Users', userid);
-    const docSnap = await getDoc(UserRef);
+    
 
     try
     {
+         //所属しているClubを取得する
+        const docSnap = await getDoc(UserRef);
         const clubs_data = docSnap.data()["Clubs"];
 
-
+        //所属しているClubを表示する
         for(let i = 0; i < clubs_data.length; i++)
         {
             const clubSnap = await getDoc( clubs_data[i] );
@@ -139,7 +146,7 @@ async function main(userid)
 
             console.log( club_snap_data["club-info"]);
             const club_elem = document.createElement("div");
-            club_elem.innerHTML = "<img class=\"circle-icon\" src=\"../resources/circle-icon.jpg\"><a class=\"circle\" href=\"./schedule/index.html?ID="+clubs_data[i].path.replace('Clubs/','')+"\"></a><a class=\"circle-name\" href=\"#\">" + club_snap_data["club-name"] + "</a><a class=\"circle-info\" href=\"#\">"+ club_snap_data["club-info"] +"</a>"
+            club_elem.innerHTML = "<img class=\"circle-icon\" src=\"../resources/circle-icon.jpg\"><a class=\"circle\" href=\"./schedule/index.html?ID="+clubs_data[i].path.replace('Clubs/','')+"\"></a><a class=\"circle-name\" href=\""+clubs_data[i].path.replace('Clubs/','')+"\">" + club_snap_data["club-name"] + "</a><a class=\"circle-info\">"+ club_snap_data["club-info"] +"</a>"
             club_elem.setAttribute("class","circle-wrapper");
             circles_wrapper.appendChild(club_elem);
         }
@@ -152,6 +159,7 @@ async function main(userid)
     
 
 }
+
 
 const gray_button = document.getElementById("gray-button");
 const join_button = document.getElementById("create");
@@ -177,47 +185,67 @@ async function join_circle()
         if(user)
         {
 
+            //参加するClubのIDのフィールドを取得する
             const join_field = document.getElementById("join-field");
+            //参加するClubのIDを取得する
             const to_join_id = join_field.value;
             
+            //参加するClubの参照を取得する
             const ClubRef = doc(db, 'Clubs', to_join_id);
             
+            //所属しているClubを書き換えるためにUserを参照する
             const UserRef = doc(db, 'Users', user.uid);
-
+            
             //ClubにUserを登録する
             getDoc(ClubRef).then((docsnap)=>{
 
                 //現在のデータを取得
                 const currentdata = docsnap.data();
                 //追加するデータ
-                const newdata = {[user.uid] : UserRef};
+                const newdata = {[user.displayName] : UserRef};
 
                 const margeddata = {
                      member : {...currentdata.member, ...newdata}
                 };
                 
                 updateDoc(ClubRef, margeddata);
-                
             });
 
+
             //UserにClubを登録する
-            updateDoc(UserRef,{
-            
-                Clubs : arrayUnion(ClubRef)
-            
-            });
+            updateUser(user.uid, ClubRef);
 
             join_field.value = "";
         }
 
-        main(user.uid);
+        
+
     });
-
+        //ここで、リフレッシュ処理ほしい(mainで再読み込みできるようにmain処理変更＋CSS改善)
+        
     show_gray();
-
     
+}
 
-    
+async function updateUser(userId, clubRef)
+{
+    //ユーザのドキュメントへの参照
+    const userDocRef = doc(db, "Users", userId);
+
+    //ユーザのドキュメントが生成されているか　確認するために取得する
+    const docSnap = await getDoc(userDocRef);
+
+    if(docSnap.exists())
+    {
+        //存在する
+        await updateDoc(userDocRef, { Clubs : arrayUnion(clubRef) });
+    }
+    else
+    {
+        //しない
+        await setDoc(userDocRef, { Clubs : [clubRef]});
+    }
+   
 }
 
 window.loginWithEmailAndPassword = loginWithEmailAndPassword;
