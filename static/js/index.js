@@ -69,68 +69,49 @@ async function main()
         {
             for (let i = 0; i < schedules.length; i++)
             {
-                const timeline = document.getElementById("timeline");
-                const tl_schedule = document.createElement('div');
-                tl_schedule.setAttribute("class","schedule");
-
-                const tl_schedule_left = document.createElement('div');
-                tl_schedule_left.setAttribute("class","schedule-left");
-
-                const tl_schedule_link = document.createElement('a');
-                tl_schedule_link.setAttribute("class","schedule-link");
-
-                const tl_schedule_title = document.createElement('a');
-                tl_schedule_title.setAttribute("class","schedule-title");
-
-                const tl_schedule_subdata = document.createElement('div');
-                tl_schedule_subdata.setAttribute("class","schedule-subdata");
-
-                const tl_schedule_date = document.createElement('p');
-                tl_schedule_date.setAttribute("class","schedule-subdata-child");
-
-                const tl_schedule_place = document.createElement('a');
-                tl_schedule_place.setAttribute("class","schedule-subdata-child");
-
-                const tl_schedule_right = document.createElement('div');
-                tl_schedule_right.setAttribute("class","schedule-right");
-
-                const tl_schedule_join = document.createElement('a');
-                tl_schedule_join.setAttribute("class","schedule-join");
-                tl_schedule_join.textContent = "参加";
-            
-
+                const schedule = await getDoc(schedules[i]);
+                const schedule_data = schedule.data();
                 //schedules = club["club-schedules"] は参照型が入った配列
                 //schedules[i]はスケジュールへの参照（reference型）
                 //getDocでreference型からdocumentを取得
-                const schedule = await getDoc(schedules[i]);
-                const schedule_data = schedule.data();
-                const schedule_ID = schedules[i].path.replace('Schedules/','');
 
-                tl_schedule_subdata.appendChild(tl_schedule_date);
-                tl_schedule_subdata.appendChild(tl_schedule_place);
-                tl_schedule_right.appendChild(tl_schedule_join);
+                //このスケジュールにアクセスできるメンバーを取得
+                const accessable_members = Object.keys(schedule_data["schedule-status"]);
 
-                tl_schedule_left.appendChild(tl_schedule_link);
-                tl_schedule_left.appendChild(tl_schedule_title);
-                tl_schedule_left.appendChild(tl_schedule_subdata);
+                //メンバー→ID(reference)の辞書
+                const dict_member = club["member"];
                 
-                timeline.appendChild(tl_schedule);
-                tl_schedule.appendChild(tl_schedule_left);
-                tl_schedule.appendChild(tl_schedule_right);
 
-                tl_schedule_title.innerText = schedule_data["schedule-name"];
+                let readable = false;
 
-                const date_init = schedule_data["schedule-inittime"].toDate();
+                onAuthStateChanged(auth, (user)=>{
 
-                tl_schedule_date.innerText = date_init.toLocaleDateString() + " " + date_init.getHours().toString() + ":" + date_init.getMinutes().toString()+"~";
-                tl_schedule_place.innerText = schedule_data["schedule-place"];
+                    if(user)
+                    {
+                        for( let j = 0; j < accessable_members.length; j++)
+                        {
+                            console.log(accessable_members[j]);
+                            const readable_userid = dict_member[ accessable_members[j] ].path.replace("Users/","");
+                            console.log(readable_userid);
+                            console.log(user.uid);
 
+                            if(readable_userid == user.uid)
+                            {
+                                readable = true;
+                            }
+                        }
+                    }
 
-                tl_schedule_link.setAttribute("href","circle.html?ID=" + schedule_ID);
-                tl_schedule_title.setAttribute("href","circle.html?ID=" + schedule_ID);
-                tl_schedule_place.setAttribute("href","https://www.google.com/maps/search/"+schedule_data["schedule-place"]);
-                tl_schedule_join.setAttribute("href","circle.html?ID=" + schedule_ID);
+                    if(readable)
+                    {
+                        a(schedules,schedule_data,i);
+                    }
+                
+                });
 
+                
+
+                
             }
         }
 
@@ -152,3 +133,66 @@ main();
 
 console.log("end");
 
+function a(schedules,schedule_data,i)
+{
+    
+
+        const timeline = document.getElementById("timeline");
+        const tl_schedule = document.createElement('div');
+        tl_schedule.setAttribute("class","schedule");
+
+        const tl_schedule_left = document.createElement('div');
+        tl_schedule_left.setAttribute("class","schedule-left");
+
+        const tl_schedule_link = document.createElement('a');
+        tl_schedule_link.setAttribute("class","schedule-link");
+
+        const tl_schedule_title = document.createElement('a');
+        tl_schedule_title.setAttribute("class","schedule-title");
+
+        const tl_schedule_subdata = document.createElement('div');
+        tl_schedule_subdata.setAttribute("class","schedule-subdata");
+
+        const tl_schedule_date = document.createElement('p');
+        tl_schedule_date.setAttribute("class","schedule-subdata-child");
+
+        const tl_schedule_place = document.createElement('a');
+        tl_schedule_place.setAttribute("class","schedule-subdata-child");
+
+        const tl_schedule_right = document.createElement('div');
+        tl_schedule_right.setAttribute("class","schedule-right");
+
+        const tl_schedule_join = document.createElement('a');
+        tl_schedule_join.setAttribute("class","schedule-join");
+        tl_schedule_join.textContent = "▶";
+
+
+        
+        const schedule_ID = schedules[i].path.replace('Schedules/','');
+
+        tl_schedule_subdata.appendChild(tl_schedule_date);
+        tl_schedule_subdata.appendChild(tl_schedule_place);
+        tl_schedule_right.appendChild(tl_schedule_join);
+
+        tl_schedule_left.appendChild(tl_schedule_link);
+        tl_schedule_left.appendChild(tl_schedule_title);
+        tl_schedule_left.appendChild(tl_schedule_subdata);
+        
+        timeline.appendChild(tl_schedule);
+        tl_schedule.appendChild(tl_schedule_left);
+        tl_schedule.appendChild(tl_schedule_right);
+
+        tl_schedule_title.innerText = schedule_data["schedule-name"];
+
+        const date_init = schedule_data["schedule-inittime"].toDate();
+
+        tl_schedule_date.innerText = date_init.toLocaleDateString() + " " + date_init.getHours().toString() + ":" + date_init.getMinutes().toString()+"~";
+        tl_schedule_place.innerText = schedule_data["schedule-place"];
+
+
+        tl_schedule_link.setAttribute("href","circle.html?ID=" + schedule_ID);
+        tl_schedule_title.setAttribute("href","circle.html?ID=" + schedule_ID);
+        tl_schedule_place.setAttribute("href","https://www.google.com/maps/search/"+schedule_data["schedule-place"]);
+        tl_schedule_join.setAttribute("href","circle.html?ID=" + schedule_ID);
+
+}
