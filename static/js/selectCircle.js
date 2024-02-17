@@ -27,6 +27,7 @@ onAuthStateChanged(auth, (user)=>{
         logined_elem.style.display = "block";
         logouted_elem.style.display = "none";
 
+        circles_wrapper.style.display = "block";
         main(user.uid);
         console.log("ログインしてます");
         console.log(user.uid);
@@ -54,12 +55,12 @@ async function makeWithEmailAndPassword()
 
     
     const Credential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = Credential.user;
+    const user = Credential.user.uid;
 
     const UserdocRef = doc(db, 'Users', user.uid );
 
     const data = {
-        name : [user_name]
+        name : user_name
     }
 
     await setDoc(UserdocRef,data);
@@ -69,8 +70,7 @@ async function makeWithEmailAndPassword()
     document.getElementById('password-signup').value = "";
     document.getElementById('password-check-signup').value = "";
     document.getElementById('user-name-signup').value = "";
-    location.reload();
-
+    
 }
 
 //ログイン
@@ -84,7 +84,7 @@ async function loginWithEmailAndPassword()
     try
     {
         const Credential = await signInWithEmailAndPassword(auth, email, password);
-        const user = Credential.user;
+        const user = Credential.user.uid;
     }
     catch(error)
     {
@@ -105,8 +105,7 @@ async function loginWithEmailAndPassword()
 
     document.getElementById('email').value = "";
     document.getElementById('password').value = "";
-    location.reload();
-
+    
 }
 
 function signout()
@@ -117,6 +116,7 @@ function signout()
     location.reload();
 }
 
+//ログインしている場合、内容を読み込む
 async function main(userid)
 {
     const UserRef = doc(db, 'Users', userid);
@@ -140,7 +140,75 @@ async function main(userid)
     }
 }
 
+const gray_button = document.getElementById("gray-button");
+const join_button = document.getElementById("create");
+
+//参加画面切り替え
+function show_gray()
+{
+    gray_button.style.display = "block";
+    join_button.style.display = "none";
+}
+
+function show_join()
+{
+    gray_button.style.display = "none";
+    join_button.style.display = "block";
+}
+
+const join_field = document.getElementById("join-field");
+
+async function join_circle()
+{
+    onAuthStateChanged(auth,(user) => {
+        if(user)
+        {
+            const to_join_id = join_field.value;
+
+            const ClubRef = doc(db, 'Clubs', to_join_id);
+            console.log(ClubRef.path);
+            const UserRef = doc(db, 'Users', user.uid);
+
+            //ClubにUserを登録する
+            getDoc(ClubRef).then((docsnap)=>{
+
+                //現在のデータを取得
+                const currentdata = docsnap.data();
+                //追加するデータ
+                const newdata = {[user.uid] : UserRef};
+
+                const margeddata = {
+                     member : {...currentdata.member, ...newdata}
+                };
+                
+                updateDoc(ClubRef, margeddata);
+                
+            });
+
+            //UserにClubを登録する
+            updateDoc(UserRef,{
+            
+                Clubs : arrayUnion(ClubRef)
+            
+            })
+        }
+
+        main(user.uid);
+    });
+
+    show_gray();
+
+    join_field.value = "";
+
+    
+}
 
 window.loginWithEmailAndPassword = loginWithEmailAndPassword;
 window.makeWithEmailAndPassword = makeWithEmailAndPassword;
 window.signout = signout;
+window.show_gray = show_gray;
+window.show_join = show_join;
+window.join_circle = join_circle;
+
+
+
