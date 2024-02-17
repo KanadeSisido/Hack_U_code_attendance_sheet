@@ -90,13 +90,13 @@ async function main()
                     {
                         for( let j = 0; j < accessable_members.length; j++)
                         {
-                            console.log(accessable_members[j]);
+                            //「表示していいユーザ」のユーザIDを取得する
                             const readable_userid = dict_member[ accessable_members[j] ].path.replace("Users/","");
-                            console.log(readable_userid);
-                            console.log(user.uid);
 
+                            //検証する
                             if(readable_userid == user.uid)
                             {
+                                //自分が「表示していいユーザ」に含まれていたらtrue
                                 readable = true;
                             }
                         }
@@ -104,6 +104,7 @@ async function main()
 
                     if(readable)
                     {
+                        //納得いかないが、awaitを使う関数は、こういう風にまとめて呼び出さないと、ここでは使えない
                         a(schedules,schedule_data,i);
                     }
                 
