@@ -102,6 +102,11 @@ header
     float : left;
 }
 
+#circles
+{
+    float: left;
+}
+
 .circle
 {
     display: block;
@@ -177,7 +182,7 @@ header
     background-color: #434343;
 }
 
-.create
+#create
 {
     position: absolute;
     top:0px;

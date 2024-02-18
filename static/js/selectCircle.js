@@ -11,7 +11,7 @@ const logined_elem = document.getElementById('logined');
 const logouted_elem = document.getElementById('logouted');
 
 const circles_wrapper = document.getElementById("circles-wrapper");
-
+const circles = document.getElementById("circles");
 
 //ログイン状態の確認
 onAuthStateChanged(auth, (user)=>{
@@ -130,7 +130,7 @@ async function main(userid)
 {
     //Userが所属しているClubを取得するためにuseridで参照を取得する
     const UserRef = doc(db, 'Users', userid);
-    
+    circles.innerHTML = "";
 
     try
     {
@@ -148,7 +148,7 @@ async function main(userid)
             const club_elem = document.createElement("div");
             club_elem.innerHTML = "<img class=\"circle-icon\" src=\"../resources/circle-icon.jpg\"><a class=\"circle\" href=\"./schedule/index.html?ID="+clubs_data[i].path.replace('Clubs/','')+"\"></a><a class=\"circle-name\" href=\""+clubs_data[i].path.replace('Clubs/','')+"\">" + club_snap_data["club-name"] + "</a><a class=\"circle-info\">"+ club_snap_data["club-info"] +"</a>"
             club_elem.setAttribute("class","circle-wrapper");
-            circles_wrapper.appendChild(club_elem);
+            circles.appendChild(club_elem);
         }
 
     }
@@ -218,10 +218,10 @@ async function join_circle()
             join_field.value = "";
         }
 
-        
+        main(user.uid);
 
     });
-        //ここで、リフレッシュ処理ほしい(mainで再読み込みできるようにmain処理変更＋CSS改善)
+        
         
     show_gray();
     
