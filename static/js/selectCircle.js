@@ -4,7 +4,8 @@ import { getFirestore, addDoc,setDoc, collection, doc, getDoc, updateDoc, arrayU
 
 
 const auth = getAuth(app);
-const error_message = document.getElementById("error-code");
+const error_message = document.getElementById("error-code-signin");
+const error_message_signup = document.getElementById("error-code-signup");
 
 const login_ui = document.getElementById('login-right');
 const logined_elem = document.getElementById('logined');
@@ -58,19 +59,40 @@ async function makeWithEmailAndPassword()
     const password_check = document.getElementById('password-check-signup').value;
     const user_name = document.getElementById('user-name-signup').value;
 
-    //Passwordのチェック
-    if(password == password_check)
+    try
     {
-        //サインアップ処理
-        const Credential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = Credential.user;
-        //Usernameを設定する
-        await updateProfile(user, {displayName: user_name});
+        //Passwordのチェック
+        if(password == password_check)
+        {
+            //サインアップ処理
+            const Credential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = Credential.user;
+            //Usernameを設定する
+            await updateProfile(user, {displayName: user_name});
+        }
+        else
+        {
+            console.log("error");
+            throw new Error("invalid password");
+        }
     }
-    else
+    catch(error)
     {
-        throw new Error("invalid password");
+        console.log(error.code);
+        if(error.code == "invalid password")
+        {
+            error_message_signup.textContent = "パスワードが一致しません";
+        }
+        else if(error.code == "auth/invalid-email")
+        {
+            error_message_signup.textContent = "Emailを入力してください";
+        }
+        else
+        {
+            error_message_signup.textContent = "入力フォームをご確認ください";
+        }
     }
+    
 
     //初期化
     document.getElementById('email-signup').value = "";
@@ -190,40 +212,47 @@ async function join_circle()
     onAuthStateChanged(auth,(user) => {
         if(user)
         {
-
-            //参加するClubのIDのフィールドを取得する
-            const join_field = document.getElementById("join-field");
-            //参加するClubのIDを取得する
-            const to_join_id = join_field.value;
-            
-            //参加するClubの参照を取得する
-            const ClubRef = doc(db, 'Clubs', to_join_id);
-            
-            //所属しているClubを書き換えるためにUserを参照する
-            const UserRef = doc(db, 'Users', user.uid);
-            
-            //ClubにUserを登録する
-            getDoc(ClubRef).then((docsnap)=>{
-
-                //現在のデータを取得
-                const currentdata = docsnap.data();
-                //追加するデータ
-                const newdata = {[user.displayName] : UserRef};
-
-                const margeddata = {
-                     member : {...currentdata.member, ...newdata}
-                };
+            try
+            {
+                //参加するClubのIDのフィールドを取得する
+                const join_field = document.getElementById("join-field");
+                //参加するClubのIDを取得する
+                const to_join_id = join_field.value;
                 
-                updateDoc(ClubRef, margeddata);
-            });
+                //参加するClubの参照を取得する
+                const ClubRef = doc(db, 'Clubs', to_join_id);
+                
+                //所属しているClubを書き換えるためにUserを参照する
+                const UserRef = doc(db, 'Users', user.uid);
+                
+                //ClubにUserを登録する
+                getDoc(ClubRef).then((docsnap)=>{
+
+                    //現在のデータを取得
+                    const currentdata = docsnap.data();
+                    //追加するデータ
+                    const newdata = {[user.displayName] : UserRef};
+
+                    const margeddata = {
+                        member : {...currentdata.member, ...newdata}
+                    };
+                    
+                    updateDoc(ClubRef, margeddata);
+                });
 
 
-            //UserにClubを登録する
-            updateUser(user.uid, ClubRef).then(()=>{
-                join_field.value = "";
+                //UserにClubを登録する
+                updateUser(user.uid, ClubRef).then(()=>{
+                    join_field.value = "";
 
-                main(user.uid);
-            });
+                    main(user.uid);
+                });
+            }
+            catch(error)
+            {
+                alert("サークルIDが存在しないか無効です");
+            }
+            
 
             
         }

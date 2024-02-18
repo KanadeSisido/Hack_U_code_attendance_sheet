@@ -86,6 +86,12 @@ header
     margin: 30px;
 }
 
+.error-code
+{
+    color:#ff7ed6;
+}
+
+
 .login-input
 {
     margin-left: 10px;
