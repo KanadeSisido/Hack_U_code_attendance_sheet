@@ -3,12 +3,12 @@ body
     margin : 0;
     padding : 0;
 
+    min-width: 840px;
+
     background-color : #ebebeb;
-    /* #F5F5F5 */
 }
 
 
-/*header*/
 
 header
 {
@@ -71,6 +71,72 @@ header
     color:#5c5c5c;
 }
 
+#login-right
+{
+    padding-top: 20px;
+}
+
+#login-right label
+{
+    color:#434343;
+}
+
+#login-wrapper div , #signup-wrapper div
+{
+    margin: 30px;
+}
+
+.login-input
+{
+    margin-left: 10px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid #6693ca;
+    height: 30px;
+}
+
+.logon
+{
+    width : 120px;
+    height : 50px;
+    border-radius: 6px;
+    
+    border : none;
+    background-color: #6693ca;
+    color : #f5f5f5;
+    box-shadow: #3333333b 0 0 7px;
+    float:left;
+}
+.logon:hover
+{
+    background-color: #5c83b2;
+    box-shadow: #3333333b 0 0 15px;
+    transition: 200ms;
+}
+
+.toggle
+{
+    display: block;
+    float:left;
+    height : 50px;
+    margin-left: 20px;
+
+    border: none;
+    background-color: #ffffff00;
+    color: #336699;
+}
+
+.signout
+{
+    display: block;
+    float:left;
+    height : 50px;
+
+    border: none;
+    background-color: #ffffff00;
+    color: #336699;
+}
 
 #header-wrapper
 {
@@ -210,8 +276,9 @@ header
 
 #join
 {
-    width: 50px;
-    height: 25px;
+    width: 60px;
+    height: 40px;
+    margin: 20px 20px 0 10px; 
 }
 
 #create a
@@ -225,4 +292,34 @@ header
     position: absolute;
     top: 10px;
     right: 10px;
+}
+
+.margin-20
+{
+    margin: 20px;
+}
+
+#create-circle
+{
+    display: block;
+    height: 40px; 
+    color : #434343;
+    text-decoration: none;
+    padding-top: 7px;
+}
+
+#close
+{
+    color:#333333;
+    font-size: 25px;
+
+    border: none;
+    background-color: #f5f5f5;
+}
+
+#create p
+{
+    color:#333333;
+    font-size: 13px;
+    margin: 10px 0 20px 0;
 }

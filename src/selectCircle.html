@@ -27,7 +27,7 @@
                     </div>
                     <div id="logined" style="display: none;">
                         <h2>JOYN</h2>
-                        <button onclick="signout()">ログアウト</button>
+                        <button class="signout" onclick="signout()">ログアウト</button>
                     </div>
                 </div>
 
@@ -37,19 +37,20 @@
 
                             <div class="login-form">
                                 <label for="email">Email : </label>
-                                <input type="email" id="email" name="email" required>
+                                <input type="email" class="login-input" id="email" name="email" required>
                             </div>
 
                             <div class="login-form">
                                 <label for="password">Password : </label>
-                                <input type="password" id="password" name="password" required>
+                                <input type="password" class="login-input" id="password" name="password" required>
                             </div>
 
                             <p id="error-code"></p>
 
-                            <button onclick="loginWithEmailAndPassword()">ログイン</button>
+                            <button class="logon" onclick="loginWithEmailAndPassword()">ログイン</button>
                             
                         </form>
+                        <button class="toggle" onclick="toggle_signup()">アカウント作成</button>
 
                     </div>
 
@@ -59,28 +60,29 @@
                             
                             <div class="login-form">
                                 <label for="email-signup">Email : </label>
-                                <input type="email" id="email-signup" name="email-signup" required>
+                                <input type="email" class="login-input" id="email-signup" name="email-signup" required>
                             </div>
 
                             <div class="login-form">
                                 <label for="password-signup">Password : </label>
-                                <input type="password" id="password-signup" name="password-signup" required>
+                                <input type="password" class="login-input" id="password-signup" name="password-signup" required>
                             </div>
                             <div class="login-form">
-                                <label for="password-check-signup">Password : </label>
-                                <input type="password" id="password-check-signup" name="password-check-signup" required>
+                                <label for="password-check-signup">Password (確認) : </label>
+                                <input type="password" class="login-input" id="password-check-signup" name="password-check-signup" required>
                             </div>
 
                             <div class="login-form">
                                 <label for="user-name-signup">UserName : </label>
-                                <input type="text" id="user-name-signup" name="user-name-signup" required>
+                                <input type="text" class="login-input" id="user-name-signup" name="user-name-signup" required>
                             </div>
 
                             <p id="error-code-signup"></p>
 
-                            <button onclick="makeWithEmailAndPassword()">アカウント作成</button>
+                            <button class="logon" onclick="makeWithEmailAndPassword()">アカウント作成</button>
                             
                         </form>
+                        <button class="toggle" onclick="toggle_login()">ログイン</button>
 
                     </div>
                     
@@ -94,11 +96,10 @@
             <div class="circle-wrapper">
                 <div id="create">
                     <p>加入するサークルのIDを入力してください</p>
-                    <input type="text" id="join-field">
+                    <input type="text" id="join-field" class="login-input">
                     <br>
-                    <button type="button" onclick="join_circle()" id="join">参加</button>
-                    <br>
-                    <a href="createNewCircle.html">サークルを作成</a>
+                    <button type="button" onclick="join_circle()" id="join" class="logon">参加</button>
+                    <a id="create-circle" href="createNewCircle.html">サークルを作成</a>
 
                     <button id="close" onclick="show_gray()">×</button>
                 </div>

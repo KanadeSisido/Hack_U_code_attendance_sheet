@@ -13,6 +13,11 @@ const logouted_elem = document.getElementById('logouted');
 const circles_wrapper = document.getElementById("circles-wrapper");
 const circles = document.getElementById("circles");
 
+const login_field = document.getElementById("login-wrapper");
+const signup_field = document.getElementById("signup-wrapper");
+signup_field.style.display = "none";
+
+
 //ログイン状態の確認
 onAuthStateChanged(auth, (user)=>{
     
@@ -119,6 +124,7 @@ function signout()
 {
     signOut(auth).then(()=>{
         console.log("logout")
+        toggle_login();
     });
     location.reload();
 }
@@ -252,6 +258,20 @@ async function updateUser(userId, clubRef)
    
 }
 
+
+function toggle_login()
+{
+    login_field.style.display = "block";
+    signup_field.style.display = "none";
+}
+
+function toggle_signup()
+{
+    signup_field.style.display = "block";
+    login_field.style.display = "none";
+}
+
+
 window.loginWithEmailAndPassword = loginWithEmailAndPassword;
 window.makeWithEmailAndPassword = makeWithEmailAndPassword;
 window.signout = signout;
@@ -259,5 +279,6 @@ window.show_gray = show_gray;
 window.show_join = show_join;
 window.join_circle = join_circle;
 
-
+window.toggle_login = toggle_login;
+window.toggle_signup = toggle_signup;
 
