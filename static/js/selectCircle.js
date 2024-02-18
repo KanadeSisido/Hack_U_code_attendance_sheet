@@ -213,12 +213,16 @@ async function join_circle()
 
 
             //UserにClubを登録する
-            updateUser(user.uid, ClubRef);
+            updateUser(user.uid, ClubRef).then(()=>{
+                join_field.value = "";
 
-            join_field.value = "";
+                main(user.uid);
+            });
+
+            
         }
 
-        main(user.uid);
+        
 
     });
         

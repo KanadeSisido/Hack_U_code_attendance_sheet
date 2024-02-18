@@ -3,16 +3,27 @@ import { getAuth,onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/1
 import { getFirestore, addDoc, collection, doc, getDoc, updateDoc, arrayUnion} from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js'
 
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDpbefZcWetdrfr2mwgV8JVZXyezBVgV6g",
-  authDomain: "joyn-85ed1.firebaseapp.com",
-  projectId: "joyn-85ed1",
-  storageBucket: "joyn-85ed1.appspot.com",
-  messagingSenderId: "1004038643973",
-  appId: "1:1004038643973:web:2a19503d2b0ade6e20576c"
-};
-
 const auth = getAuth();
+
+//クエリからIDを手に入れる
+const url = window.location.search;
+const Params = new URLSearchParams(url);
+const ClubID = Params.get("ID");
+
+onAuthStateChanged(auth, (user)=>{
+
+  if(user && ClubID)
+  {
+      //ログイン時
+      console.log("ログインしています")
+  }
+  else
+  {
+      //ログインできてない時は最初の画面に飛ばす
+      window.location.href = '../selectCircle.html';
+  }
+
+});
 
 //formの要素を取得する
 const form = document.getElementById("create-schedule");
@@ -26,16 +37,15 @@ const member_container = document.getElementById("member-Container");
 const open_member_button = document.getElementById("to-open-menu");
 const close_member_button = document.getElementById("to-close-menu");
 
+//送信しましたアイコン
+const sent_message = document.getElementById("send-message");
+sent_message.style.display = "none";
+
 let member_option = "unselected";
 
 
 async function main()
 {
-  
-  //クエリからIDを手に入れる
-  const url = window.location.search;
-  const Params = new URLSearchParams(url);
-  const ClubID = Params.get("ID");
 
 
   //DBからクラブの情報を手に入れる
@@ -196,4 +206,15 @@ async function a(members,init_dateObj,clubDocRef)
     form.reset();
 
     console.log(members);
+
+    sent_message.style.display = 'block';
+    setTimeout(function(){
+      hideNoti();
+    }, 3000);
+
+}
+
+function hideNoti()
+{
+  sent_message.style.display = 'none';
 }

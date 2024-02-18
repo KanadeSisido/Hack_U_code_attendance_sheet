@@ -231,3 +231,25 @@ table
     border: 1px solid #5c5c5c;
     color: #5c5c5c;
 }
+
+
+#send-message
+{
+    position: fixed;
+    bottom : 20px;
+    left : calc(50% - 200px);
+    
+    width : 400px;
+    height : 50px;
+
+    background-color: rgb(26, 223, 144);
+    border-radius: 15px;
+    
+}
+
+#send-message p
+{
+    margin-top: 13px;
+    text-align: center;
+    color : #ffffff;
+}

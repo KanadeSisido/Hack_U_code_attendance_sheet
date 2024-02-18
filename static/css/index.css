@@ -92,6 +92,14 @@ header
 {
     font-size: larger;
     color: #333333;
+    margin-bottom: 0;
+}
+
+#circle-id
+{
+    font-size: 10px;
+    color: #5c5c5c;
+    margin-top: 0;
 }
 
 .acce-square
@@ -106,13 +114,15 @@ header
 
 #circle-text-wrapper
 {
-    margin-top: 10px;
+    margin-top: 20px;
     color: #5c5c5c;
+    font-size: 12px;
 }
 
 #circle-subdata
 {
     margin-top: 20px;
+    font-size: 12px;
 }
 .circle-subdata-link
 {

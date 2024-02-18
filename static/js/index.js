@@ -14,7 +14,7 @@ const auth = getAuth(app);
 //ログイン確認
 onAuthStateChanged(auth, (user)=>{
 
-    if(user)
+    if(user && ClubID)
     {
         //ログイン時
         console.log("ログインしています")
@@ -32,7 +32,7 @@ const circle_name = document.getElementById("circle-name");
 const circle_text = document.getElementById("circle-text");
 const circle_place = document.getElementById("circle-place");
 const circle_email = document.getElementById("circle-email");
-
+const circle_id = document.getElementById("circle-id");
 
 //create new schedule
 const create_schedule = document.getElementById("create-new-schedule");
@@ -57,6 +57,7 @@ async function main()
         circle_place.innerText = club["club-place"];
         circle_place.href = "https://www.google.com/maps/search/" + club["club-place"];
         circle_email.innerText = club["club-email"];
+        circle_id.innerText = "ID : " + clubDocRef.path.replace("Clubs/","");
 
         //Scheduleを表示する
 
