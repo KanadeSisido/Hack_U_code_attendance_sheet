@@ -7,6 +7,14 @@ const auth = getAuth(app);
 
 const form = document.getElementById("create-circle");
 
+const sent_message = document.getElementById("send-message");
+sent_message.style.display = "none";
+
+const circle_name = document.getElementById("circle-name");
+const circle_info = document.getElementById("circle-info");
+const circle_address = document.getElementById("circle-address");
+const circle_place = document.getElementById("circle-place");
+
 
 onAuthStateChanged(auth, (user)=>{
     
@@ -19,10 +27,7 @@ onAuthStateChanged(auth, (user)=>{
         form.addEventListener("submit",async e => {
             e.preventDefault();
         
-            const circle_name = document.getElementById("circle-name");
-            const circle_info = document.getElementById("circle-info");
-            const circle_address = document.getElementById("circle-address");
-            const circle_place = document.getElementById("circle-place");
+            
             
             if(circle_name.value && circle_info.value && circle_address.value && circle_place.value)
             {
@@ -87,5 +92,21 @@ async function updateUser(userId, clubRef)
         //しない
         await setDoc(userDocRef, { Clubs : [clubRef]});
     }
-   
+
+
+    sent_message.style.display = 'block';
+    setTimeout(function(){
+      hideNoti();
+    }, 3000);
+
+    circle_name.value = "";
+    circle_place.value = "";
+    circle_address.value = "";
+    circle_info.value = "";
+
+}
+
+function hideNoti()
+{
+  sent_message.style.display = 'none';
 }
