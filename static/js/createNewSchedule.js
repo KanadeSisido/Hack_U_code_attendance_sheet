@@ -146,18 +146,19 @@ async function main()
             {
                 selected_members[i] = checkboxes[i].id;
             }
+            
           }
+
           
+
           //ログイン状態を取得
           onAuthStateChanged(auth,(user)=>{
-            console.log("auth");
-            console.log(user.displayName);
 
             //送信用のmapに書き込む
             for (let i = 0; i < selected_members.length; i++)
             {
               
-              members[ user.displayName ] = 'Unselected';
+              members[ selected_members[i] ] = 'Unselected';
               
             }
 
