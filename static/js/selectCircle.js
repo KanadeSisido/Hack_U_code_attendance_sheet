@@ -152,7 +152,7 @@ async function main(userid)
 
             console.log( club_snap_data["club-info"]);
             const club_elem = document.createElement("div");
-            club_elem.innerHTML = "<img class=\"circle-icon\" src=\"../resources/circle-icon.jpg\"><a class=\"circle\" href=\"./schedule/index.html?ID="+clubs_data[i].path.replace('Clubs/','')+"\"></a><a class=\"circle-name\" href=\""+clubs_data[i].path.replace('Clubs/','')+"\">" + club_snap_data["club-name"] + "</a><a class=\"circle-info\">"+ club_snap_data["club-info"] +"</a>"
+            club_elem.innerHTML = "<img class=\"circle-icon\" src=\"../resources/circle-icon.jpg\"><a class=\"circle\" href=\"./schedule/index.html?ID="+clubs_data[i].path.replace('Clubs/','')+"\"></a><a class=\"circle-name\" href=\"./schedule/index.html?ID="+clubs_data[i].path.replace('Clubs/','')+"\">" + club_snap_data["club-name"] + "</a><a class=\"circle-info\">"+ club_snap_data["club-info"] +"</a>"
             club_elem.setAttribute("class","circle-wrapper");
             circles.appendChild(club_elem);
         }
