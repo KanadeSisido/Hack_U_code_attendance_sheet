@@ -20,7 +20,7 @@ header
     left : 0;
     z-index: 100;
 
-    background-color: rgba(51,102,153,1);
+    background: linear-gradient(to right,#336699,#6693ca);
 
     box-shadow: rgba(0,0,0,0.3) 0px 0px 7px;
 
@@ -271,6 +271,10 @@ header
 {
     width: 200px;
     height: 25px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid #336699;
 }
 
 #join
@@ -321,4 +325,9 @@ header
     color:#333333;
     font-size: 13px;
     margin: 10px 0 20px 0;
+}
+
+#create-field
+{
+    border-bottom: 2px solid #336699;
 }
