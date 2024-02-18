@@ -43,7 +43,7 @@ header
 
     border-radius: 10px;
     box-shadow: rgba(0,0,0,0.3) 0px 0px 7px;
-    background-color: #f5f5f5;
+    background: linear-gradient(to right,#336699,#6693ca);
 }
 
 #logined h2
@@ -63,12 +63,12 @@ header
 
 #login-left h2
 {
-    color:#333333;
+    color:#fffffff6;
 }
 
 #login-left p
 {
-    color:#5c5c5c;
+    color:#ffffff9d;
 }
 
 #login-right
@@ -78,7 +78,7 @@ header
 
 #login-right label
 {
-    color:#434343;
+    color:#fffffff6;
 }
 
 #login-wrapper div , #signup-wrapper div
@@ -89,11 +89,10 @@ header
 .login-input
 {
     margin-left: 10px;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 2px solid #6693ca;
+    border: none;
     height: 30px;
+    background-color: #ffffff4e;
+    border-radius: 5px;
 }
 
 .logon
@@ -103,14 +102,14 @@ header
     border-radius: 6px;
     
     border : none;
-    background-color: #6693ca;
+    background-color: #74aaeb;
     color : #f5f5f5;
     box-shadow: #3333333b 0 0 7px;
     float:left;
 }
 .logon:hover
 {
-    background-color: #5c83b2;
+    background-color: #6e9bd2;
     box-shadow: #3333333b 0 0 15px;
     transition: 200ms;
 }
@@ -124,7 +123,7 @@ header
 
     border: none;
     background-color: #ffffff00;
-    color: #336699;
+    color: #ffffffc1;
 }
 
 .signout
@@ -135,7 +134,7 @@ header
 
     border: none;
     background-color: #ffffff00;
-    color: #336699;
+    color: #ffffffc1;
 }
 
 #header-wrapper
