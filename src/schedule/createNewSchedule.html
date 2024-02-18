@@ -3,8 +3,9 @@
     <head>
         <meta charset="utf-8">
         <title>Home / JOYN</title>
-        <link rel="stylesheet" href="source\createNewSchedule.css">
-        <script type="module" src="source\createNewSchedule.js"></script>
+        <link rel="stylesheet" href="../../static/css/createNewSchedule.css">
+        <script type="module" src="../../static/js/importFirebase.js"></script>
+        <script type="module" src="../../static/js/createNewSchedule.js"></script>
     </head>
     <body>
         <header>
@@ -58,19 +59,32 @@
 
                         <tr>
                             <th>
-                                <label for="schedule-endtime">終了</label>
+                                <label for="schedule-endtime">イベント参加者</label>
                             </th>
-                            <th class="field">
-                                <input type="datetime-local" id="schedule-endtime" name="schedule-endtime">
+                            <th class="open-menu">
+                                <button type="button" class="open-menu-button" id="to-close-menu">
+                                    全員
+                                </button>
+                                <button type="button" class="open-menu-button" id="to-open-menu">
+                                    設定する
+                                </button>
                             </th>
                         </tr>
 
                     </tbody>
                 </table>
+                <div id="member-Container">
+
+                </div>
                 
-                <button type="submit">作成</button>
+                <button type="submit" id="submit">作成</button>
 
             </form>
         </div>
+
+        <div id="send-message">
+            <p>スケジュールを作成しました</p>
+        </div>
+        
     </body>
 </html>

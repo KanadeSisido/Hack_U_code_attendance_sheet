@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>Home / JOYN</title>
+        <link rel="stylesheet" href="../../static/css/createNewSchedule.css">
+        <script type="module" src="../../static/js/importFirebase.js"></script>
+        <script type="module" src="../static/js/createNewCircle.js"></script>
+    </head>
+    <body>
+        <header>
+            <div id="header-wrapper">
+                <div id="header-left">
+                    <p>tes</p>
+                </div>
+            </div>
+        </header>
+        <div id="create-wrapper">
+            <h2>新しいサークルを作成</h2>
+            <form id="create-circle">
+
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>
+                                <label for="circle-name">サークルの名前</label>
+                            </th>
+                            <th class="field">
+                                <input type="text" id="circle-name" name="circle-name" required>
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                <label for="circle-info">サークルの詳細</label>
+                            </th>
+                            <th class="field">
+                                <textarea id="circle-info" name="circle-info"></textarea>
+                            </th>
+                        </tr>
+                        
+                        <tr>
+                            <th>
+                                <label for="circle-address">連絡先</label>
+                            </th>
+                            <th class="field">
+                                <input type="text" id="circle-address" name="circle-address" required>
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                <label for="circle-place">場所</label>
+                            </th>
+                            <th class="field">
+                                <input type="text" id="circle-place" name="circle-place" required>
+                            </th>
+                        </tr>
+                        
+
+                    </tbody>
+                </table>
+                
+                <button type="submit" id="submit">作成</button>
+
+            </form>
+        </div>
+        
+        <div id="send-message">
+            <p>スケジュールを作成しました</p>
+        </div>
+    </body>
+</html>

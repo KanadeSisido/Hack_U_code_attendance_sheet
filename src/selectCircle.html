@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>Home / JOYN</title>
+        
+        <link rel="stylesheet" href="../static/css/selectCircle.css">
+        <script type="module" src="../static/js/selectCircle.js"></script>
+
+    </head>
+    <body>
+        <header>
+            <div id="header-wrapper">
+                <div id="header-left">
+                    <p>test</p>
+                </div>
+            </div>
+        </header>
+
+        <div id="dashboard-wrapper">
+        
+            <div id="login-wr" class="background">
+                <div id="login-left">
+                    <div id="logouted" style="display: none;">
+                        <h2>ログイン</h2>
+                        <p>ログインするとサービスを利用できます</p>
+                    </div>
+                    <div id="logined" style="display: none;">
+                        <h2>JOYN</h2>
+                        <button class="signout" onclick="signout()">ログアウト</button>
+                    </div>
+                </div>
+
+                <div id="login-right">
+                    <div id="login-wrapper">
+                        <form id="login">
+
+                            <div class="login-form">
+                                <label for="email">Email : </label>
+                                <input type="email" class="login-input" id="email" name="email" required>
+                            </div>
+
+                            <div class="login-form">
+                                <label for="password">Password : </label>
+                                <input type="password" class="login-input" id="password" name="password" required>
+                            </div>
+
+                            <p id="error-code"></p>
+
+                            <button class="logon" onclick="loginWithEmailAndPassword()">ログイン</button>
+                            
+                        </form>
+                        <button class="toggle" onclick="toggle_signup()">アカウント作成</button>
+
+                    </div>
+
+                    <div id="signup-wrapper">
+
+                        <form id="signup">
+                            
+                            <div class="login-form">
+                                <label for="email-signup">Email : </label>
+                                <input type="email" class="login-input" id="email-signup" name="email-signup" required>
+                            </div>
+
+                            <div class="login-form">
+                                <label for="password-signup">Password : </label>
+                                <input type="password" class="login-input" id="password-signup" name="password-signup" required>
+                            </div>
+                            <div class="login-form">
+                                <label for="password-check-signup">Password (確認) : </label>
+                                <input type="password" class="login-input" id="password-check-signup" name="password-check-signup" required>
+                            </div>
+
+                            <div class="login-form">
+                                <label for="user-name-signup">UserName : </label>
+                                <input type="text" class="login-input" id="user-name-signup" name="user-name-signup" required>
+                            </div>
+
+                            <p id="error-code-signup"></p>
+
+                            <button class="logon" onclick="makeWithEmailAndPassword()">アカウント作成</button>
+                            
+                        </form>
+                        <button class="toggle" onclick="toggle_login()">ログイン</button>
+
+                    </div>
+                    
+
+                </div>
+            </div>
+        
+        </div>
+
+        <div id="circles-wrapper">
+            <div class="circle-wrapper">
+                <div id="create">
+                    <p>加入するサークルのIDを入力してください</p>
+                    <input type="text" id="join-field" >
+                    <br>
+                    <button type="button" onclick="join_circle()" id="join" class="logon">参加</button>
+                    <a id="create-circle" href="createNewCircle.html">サークルを作成</a>
+
+                    <button id="close" onclick="show_gray()">×</button>
+                </div>
+
+                <button class="circle  menu" id="gray-button" onclick="show_join()">
+                    +
+                </button>  
+            </div>
+            <div id="circles">
+                
+            </div>
+            
+            
+            
+                        
+            
+        </div>
+
+    </body>
+</html>

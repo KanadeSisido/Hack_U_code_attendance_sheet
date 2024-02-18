@@ -1,0 +1,333 @@
+body
+{
+    margin : 0;
+    padding : 0;
+
+    min-width: 840px;
+
+    background-color : #ebebeb;
+}
+
+
+
+header
+{
+    width : 100%;
+    height : 65px;
+
+    position : fixed;
+    top : 0;
+    left : 0;
+    z-index: 100;
+
+    background: linear-gradient(to right,#336699,#6693ca);
+
+    box-shadow: rgba(0,0,0,0.3) 0px 0px 7px;
+
+}
+
+#dashboard-wrapper
+{
+    margin-top: 100px;
+    padding: 0 100px;
+    height : 400px;
+
+}
+
+.background
+{
+    margin: 0 auto;
+
+    height : 100%;
+    width: 100%;
+
+    border-radius: 10px;
+    box-shadow: rgba(0,0,0,0.3) 0px 0px 7px;
+    background: linear-gradient(to right,#336699,#6693ca);
+}
+
+#logined h2
+{
+    font-size: 50px;
+}
+
+#login-left
+{
+    width: calc(50vw - 100px);
+    padding: 50px;
+
+    height: 100%;
+    float: left;
+    box-sizing: border-box;
+}
+
+#login-left h2
+{
+    color:#fffffff6;
+}
+
+#login-left p
+{
+    color:#ffffff9d;
+}
+
+#login-right
+{
+    padding-top: 20px;
+}
+
+#login-right label
+{
+    color:#fffffff6;
+}
+
+#login-wrapper div , #signup-wrapper div
+{
+    margin: 30px;
+}
+
+.login-input
+{
+    margin-left: 10px;
+    border: none;
+    height: 30px;
+    background-color: #ffffff4e;
+    border-radius: 5px;
+}
+
+.logon
+{
+    width : 120px;
+    height : 50px;
+    border-radius: 6px;
+    
+    border : none;
+    background-color: #74aaeb;
+    color : #f5f5f5;
+    box-shadow: #3333333b 0 0 7px;
+    float:left;
+}
+.logon:hover
+{
+    background-color: #6e9bd2;
+    box-shadow: #3333333b 0 0 15px;
+    transition: 200ms;
+}
+
+.toggle
+{
+    display: block;
+    float:left;
+    height : 50px;
+    margin-left: 20px;
+
+    border: none;
+    background-color: #ffffff00;
+    color: #ffffffc1;
+}
+
+.signout
+{
+    display: block;
+    float:left;
+    height : 50px;
+
+    border: none;
+    background-color: #ffffff00;
+    color: #ffffffc1;
+}
+
+#header-wrapper
+{
+    margin : 0 auto;
+    padding : 0 5px;
+}
+
+#header-wrapper p
+{
+    margin: 0;
+}
+
+#circles-wrapper
+{
+    width: calc(100vw - 100px);
+    height: calc(100vh - 100px);
+    margin: 100px 100px 0 100px;
+
+    display: none;
+    box-sizing: border-box;
+}
+
+.circle-wrapper
+{
+    position: relative;
+    height : 200px;
+    width: 400px;
+    margin:10px;
+    float : left;
+}
+
+#circles
+{
+    float: left;
+}
+
+.circle
+{
+    display: block;
+
+    position: absolute;
+    top:0px;
+    left:0px;
+
+    height : 200px;
+    width: 400px;
+
+    border-radius: 10px;
+    box-shadow: rgba(0,0,0,0.3) 0px 0px 7px;
+    background-color: #f5f5f5;
+    
+
+    transition: 200ms;
+}
+
+.circle:hover
+{
+    box-shadow: rgba(0,0,0,0.3) 0px 0px 20px;
+}
+
+.circle-wrapper img
+{
+    position: absolute;
+    top:10px;
+    left:10px;
+
+    z-index: 1;
+
+    display : block;
+
+    width : 90px;
+    
+    border-radius: calc(90px / 2);
+    box-shadow: rgba(0,0,0,0.3) 0px 0px 5px;
+}
+
+.circle-name
+{
+    position: absolute;
+    font-size: 30px;
+    color:#5c5c5c;
+    top:30px;
+    left:120px;
+    text-decoration: none;
+}
+
+.circle-info
+{
+    position: absolute;
+    font-size: 10px;
+    color:#5c5c5c;
+    bottom:20px;
+    left:120px;
+    text-decoration: none;
+}
+
+.menu
+{
+    line-height: 100px;
+    text-align: center;
+    background-color: #5c5c5c;
+    font-size: 80px;
+    color: #f5f5f5;
+    border: none;
+    box-sizing: border-box;
+}
+.menu:hover
+{
+    background-color: #434343;
+}
+
+#create
+{
+    position: absolute;
+    top:0px;
+    left:0px;
+    margin: 0;
+    padding: 20px;
+
+    height : 200px;
+    width: 400px;
+
+    border-radius: 10px;
+    box-shadow: rgba(0,0,0,0.3) 0px 0px 7px;
+    background-color: #f5f5f5;
+    box-sizing: border-box;
+
+    display: none;
+}
+
+
+#join-field
+{
+    width: 200px;
+    height: 25px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid #336699;
+}
+
+#join
+{
+    width: 60px;
+    height: 40px;
+    margin: 20px 20px 0 10px; 
+}
+
+#create a
+{
+    display: block;
+    margin-top: 20px;
+}
+
+#close
+{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.margin-20
+{
+    margin: 20px;
+}
+
+#create-circle
+{
+    display: block;
+    height: 40px; 
+    color : #434343;
+    text-decoration: none;
+    padding-top: 7px;
+}
+
+#close
+{
+    color:#333333;
+    font-size: 25px;
+
+    border: none;
+    background-color: #f5f5f5;
+}
+
+#create p
+{
+    color:#333333;
+    font-size: 13px;
+    margin: 10px 0 20px 0;
+}
+
+#create-field
+{
+    border-bottom: 2px solid #336699;
+}
