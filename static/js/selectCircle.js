@@ -272,6 +272,7 @@ async function join_circle()
                     //同じNameがある場合（すでに登録されている場合を除く）
                     while (is_currentusername_already_registed && !is_currentuser_already_regist)
                     {
+                        //名前を一意なものに変更
                         username = user.displayName + "#" + random_int(100,0);
 
                         is_currentusername_already_registed = false;

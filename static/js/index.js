@@ -188,7 +188,7 @@ function a(schedules,schedule_data,i)
 
         const date_init = schedule_data["schedule-inittime"].toDate();
 
-        tl_schedule_date.innerText = date_init.toLocaleDateString() + " " + date_init.getHours().toString() + ":" + date_init.getMinutes().toString()+"~";
+        tl_schedule_date.innerText = date_init.toLocaleDateString() + " " + date_init.getHours().toString() + ":" + date_init.getMinutes().toString().padStart(2,'0')+"~";
         tl_schedule_place.innerText = schedule_data["schedule-place"];
 
 
