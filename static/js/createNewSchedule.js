@@ -158,7 +158,7 @@ async function main()
             for (let i = 0; i < selected_members.length; i++)
             {
               
-              members[ selected_members[i] ] = 'Unselected';
+              members[ selected_members[i] ] = '';
               
             }
 
