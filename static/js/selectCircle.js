@@ -230,8 +230,65 @@ async function join_circle()
 
                     //現在のデータを取得
                     const currentdata = docsnap.data();
+
+                    console.log(Object.keys(currentdata.member));
+                    const userpathes = Object.values(currentdata.member);
+                    const usernames = Object.keys(currentdata.member);
+
+                    let userids = Array(userpathes.length);
+
+                    //UserIDを取得する
+                    for( let i = 0; i < userpathes.length; i++)
+                    {
+                        userids[i] = userpathes[i].path.replace("Users/","");
+                    }
+
+                    //今のユーザがすでに登録されているか
+                    let is_currentuser_already_regist = false;
+
+                    for( let i = 0; i < userids.length; i++)
+                    {
+                        if(user.uid == userids[i])
+                        {
+                            is_currentuser_already_regist = true;
+                        }
+                    }
+
+                    // フィールドに書き込む名前
+                    let username = user.displayName;
+
+                    //同じNameがあるか
+                    let is_currentusername_already_registed = false;
+
+                    for( let i = 0; i < usernames.length; i++)
+                    {
+                        if(user.displayName == usernames[i])
+                        {
+                            is_currentusername_already_registed = true;
+                        }
+                    }
+
+
+                    //同じNameがある場合（すでに登録されている場合を除く）
+                    while (is_currentusername_already_registed && !is_currentuser_already_regist)
+                    {
+                        username = user.displayName + "#" + random_int(100,0);
+
+                        is_currentusername_already_registed = false;
+
+                        for( let i = 0; i < usernames.length; i++)
+                        {
+                            if(username == usernames[i])
+                            {
+                                is_currentusername_already_registed = true;
+                            }
+                        }
+
+                    }
+                    
+
                     //追加するデータ
-                    const newdata = {[user.displayName] : UserRef};
+                    const newdata = {[username] : UserRef};
 
                     const margeddata = {
                         member : {...currentdata.member, ...newdata}
@@ -298,6 +355,11 @@ function toggle_signup()
 {
     signup_field.style.display = "block";
     login_field.style.display = "none";
+}
+
+function random_int(maxx,minn)
+{
+    return Math.floor(minn + Math.random() * (maxx - minn));
 }
 
 
