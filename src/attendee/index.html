@@ -5,30 +5,62 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>JOYN</title>
         <link rel="stylesheet" href="../../static/css/attendee.css">
+        <link rel="stylesheet" href="../../static/css/headerHBG.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
         <script type="module" src="../../static/js/attendee.js"></script>
+        <script type="module" src="../../static/js/headerHBG.js"></script>
     </head>
     <body>
         <header>
             <div class="container">
+                <div id="navArea">
+                    <nav>
+                        <div class="inner">
+                            <ul>
+                                <li><a href="#"><i class="material-icons icon-home">home</i>Home</a></li>
+                                <li><a href="#"><i class="material-icons icon-select">apps</i>Circle select</a></li>
+                                <li><a href="#"><i class="material-icons icon-logout">logout</i>Logout</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <div class="toggle-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                    <div id="mask"></div>
+                </div>
                 <div class="header-left">
-                    <p class = logo>JOYN</p>
+                    <img class="logo" src="../../resources/joynicon.png">
                 </div>
             </div>
         </header>
         <main>
-            <table id="attendance-table">
-                <thead>
-                    <tr>
-                        <th>詳細</th>
-                        <th>
-                            <h3>day1</h3>
-                            <p>練習場所:学生ホール</p>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <div class="flex">
+                <div class="left">
+                    <table id="attendance-table">
+                        <thead>
+                            <tr>
+                                <th id="info"></th>
+                                <th id="time-place">
+                                    <h3></h3>
+                                    <p></p>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="right">
+                    <div class="current-list">
+                        <ul id="list">
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </main>
     </body>
 </html>

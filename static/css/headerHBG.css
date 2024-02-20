@@ -1,0 +1,146 @@
+header{
+    height: 65px;
+    background-color: #6693ca;
+} 
+
+.header-left {
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.logo{
+    transform: scale(0.4, 0.4);
+    padding-left: 40px;
+    cursor: pointer;
+    transition: all 0.5s;
+    opacity: 1;
+}
+
+nav {
+    display: block;
+    width: 220px;
+    position: fixed;
+    background-color: #ffffff;
+    top: 0;
+    left: -300px;
+    bottom: 0;
+    transition: all 0.5s;
+    z-index: 3;
+    opacity: 0;
+}
+
+.open nav {
+    left: 0;
+    opacity: 1;
+}
+
+nav .inner{
+    padding: 25px;
+}
+
+nav .inner ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-top: 40px
+}
+
+nav .inner ul li {
+    margin: 0;
+    border-bottom: 1px solid #333;
+}
+
+nav .inner ul li a{
+    display: block;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    padding: 1rem;
+    transition-duration: 0.2s;
+
+
+}
+
+nav .inner ul li a:hover {
+    background-color: #e4e4e4;
+}
+
+.toggle-btn {
+    display: block;
+    position: fixed;
+    top: 20px;
+    left: 25px;
+    width: 30px;
+    height: 20px;
+    z-index: 3;
+    cursor: pointer;
+} 
+
+.toggle-btn span {
+    position: absolute;
+    display: block;
+    left: 0;
+    width: 20px;
+    height: 2px;
+    background-color: #333;
+    transition: all 0.5s;
+    border-radius: 4px;
+}
+
+.toggle-btn span:nth-child(1) {
+    top: 4px;
+}
+
+.toggle-btn span:nth-child(2) {
+    top: 10px;
+}
+
+.toggle-btn span:nth-child(3) {
+    bottom: 2px;
+}
+
+.open .toggle-btn span:nth-child(1) {
+    transform: translateY(6px) rotate(315deg);
+}
+.open .toggle-btn span:nth-child(2) {
+    opacity: 0;
+}
+.open .toggle-btn span:nth-child(3) {
+    transform: translateY(-6px) rotate(-315deg);
+}
+
+#mask {
+    display: none;
+    transition: all 0.5;
+}
+
+.open #mask {
+    display: block;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.material-icons {
+    padding-right: 10px;
+}
+
+.icon-home {
+    vertical-align: -7px;
+}
+
+.icon-select {
+    vertical-align: -6px;
+}
+
+.icon-logout {
+    transform: scale(0.8, 0.8);
+    vertical-align: -7px;
+}
+
