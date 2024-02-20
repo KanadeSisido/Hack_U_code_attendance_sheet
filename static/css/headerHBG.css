@@ -125,6 +125,7 @@ nav .inner ul li a:hover {
     position: fixed;
     opacity: 0.6;
     cursor: pointer;
+    z-index: 1;
 }
 
 .material-icons {
