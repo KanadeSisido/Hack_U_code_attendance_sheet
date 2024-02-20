@@ -19,10 +19,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 //クエリ受け取り
-//const url = window.location.search;
-//const Params = new URLSearchParams(url);
-//const ID = Params.get("ID");
-const ID = 'uJQVxo0m4B39zwS6KEvn';
+const url = window.location.search;
+const Params = new URLSearchParams(url);
+const ID = Params.get("ID");
 
 // ドキュメントの ID
 var documentId = ID;
