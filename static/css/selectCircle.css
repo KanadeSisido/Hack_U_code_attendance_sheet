@@ -10,21 +10,7 @@ body
 
 
 
-header
-{
-    width : 100%;
-    height : 65px;
 
-    position : fixed;
-    top : 0;
-    left : 0;
-    z-index: 100;
-
-    background: linear-gradient(to right,#336699,#6693ca);
-
-    box-shadow: rgba(0,0,0,0.3) 0px 0px 7px;
-
-}
 
 #dashboard-wrapper
 {
@@ -86,6 +72,12 @@ header
     margin: 30px;
 }
 
+.error-code
+{
+    color:#ff7ed6;
+}
+
+
 .login-input
 {
     margin-left: 10px;
@@ -136,6 +128,7 @@ header
     background-color: #ffffff00;
     color: #ffffffc1;
 }
+
 
 #header-wrapper
 {
@@ -206,7 +199,7 @@ header
 
     display : block;
 
-    width : 90px;
+    width : 70px;
     
     border-radius: calc(90px / 2);
     box-shadow: rgba(0,0,0,0.3) 0px 0px 5px;
@@ -215,7 +208,7 @@ header
 .circle-name
 {
     position: absolute;
-    font-size: 30px;
+    font-size: 25px;
     color:#5c5c5c;
     top:30px;
     left:120px;

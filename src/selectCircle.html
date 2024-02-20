@@ -2,17 +2,39 @@
 <html lang="ja">
     <head>
         <meta charset="utf-8">
-        <title>Home / JOYN</title>
+        <title>サークル作成 / JOYN</title>
         
         <link rel="stylesheet" href="../static/css/selectCircle.css">
         <script type="module" src="../static/js/selectCircle.js"></script>
+        <link rel="stylesheet" href="../../static/css/headerHBG.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <script type="module" src="../../static/js/headerHBG.js"></script>
 
     </head>
     <body>
         <header>
-            <div id="header-wrapper">
-                <div id="header-left">
-                    <p>test</p>
+            <div class="container">
+                <div id="navArea">
+                    <nav>
+                        <div class="inner">
+                            <ul>
+                                <li><a href="#"><i class="material-icons icon-home">home</i>Home</a></li>
+                                <li><a href="#"><i class="material-icons icon-select">apps</i>Circle select</a></li>
+                                <li><a href="#"><i class="material-icons icon-logout">logout</i>Logout</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <div class="toggle-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                    <div id="mask"></div>
+                </div>
+                <div class="header-left">
+                    <img class="logo" src="../../resources/joynicon.png">
                 </div>
             </div>
         </header>
@@ -45,7 +67,7 @@
                                 <input type="password" class="login-input" id="password" name="password" required>
                             </div>
 
-                            <p id="error-code"></p>
+                            <p id="error-code-signin" class="error-code"></p>
 
                             <button class="logon" onclick="loginWithEmailAndPassword()">ログイン</button>
                             
@@ -77,7 +99,7 @@
                                 <input type="text" class="login-input" id="user-name-signup" name="user-name-signup" required>
                             </div>
 
-                            <p id="error-code-signup"></p>
+                            <p id="error-code-signup" class="error-code"></p>
 
                             <button class="logon" onclick="makeWithEmailAndPassword()">アカウント作成</button>
                             
