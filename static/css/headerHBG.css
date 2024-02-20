@@ -122,6 +122,7 @@ nav .inner ul li a:hover {
     height: 100%;
     top: 0;
     left: 0;
+    z-index: 1;
     position: fixed;
     opacity: 0.6;
     cursor: pointer;
