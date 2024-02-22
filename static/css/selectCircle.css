@@ -10,8 +10,6 @@ body
 
 
 
-
-
 #dashboard-wrapper
 {
     margin-top: 100px;
@@ -118,14 +116,21 @@ body
     color: #ffffffc1;
 }
 
+#username-display
+{
+    margin: 0px 10px 0 0;
+    box-sizing: border-box;
+}
+
 .signout
 {
     display: block;
-    float:left;
-    height : 50px;
+    height : 30px;
+    margin: 10px 0px;
 
     border: none;
-    background-color: #ffffff00;
+    border-radius: 5px;
+    background-color: #ffffff1f;
     color: #ffffffc1;
 }
 
