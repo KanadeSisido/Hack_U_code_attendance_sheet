@@ -19,10 +19,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 //クエリ受け取り
-//const url = window.location.search;
-//const Params = new URLSearchParams(url);
-//const ID = Params.get("ID");
-const ID = 'uJQVxo0m4B39zwS6KEvn';
+const url = window.location.search;
+const Params = new URLSearchParams(url);
+const ID = Params.get("ID");
 
 // ドキュメントの ID
 var documentId = ID;
@@ -43,17 +42,25 @@ const timePlace = document.getElementById("time-place");
 const scheduleName = document.createElement('p');
 const scheduleInfo = document.createElement('p');
 const scheduleTime = document.createElement('p');
+const schedulebr1 = document.createElement('br');
+const schedulebr2 = document.createElement('br');
 const schedulePlace = document.createElement('p');
 
-scheduleName.textContent = 'タイトル： ' + docRef_data.data()['schedule-name']
-scheduleInfo.textContent = '概要：  ' + docRef_data.data()['schedule-info']
-scheduleTime.textContent = '時間：  ' + docRef_data.data()['schedule-inittime']
-schedulePlace.innerText = '場所：  ' + '\n' + docRef_data.data()['schedule-place']
+scheduleName.innerText = 'タイトル\n' + docRef_data.data()['schedule-name']
+scheduleInfo.innerText = '概要\n' + docRef_data.data()['schedule-info']
+
+var time_date = docRef_data.data()['schedule-inittime'].toDate();
+scheduleTime.innerText = '時間' + '\n' + time_date.getFullYear().toString() + "/" + (time_date.getMonth() + 1).toString()  + "/" + time_date.getDate().toString() + " " + time_date.getHours().toString() + ":" + time_date.getMinutes().toString().padStart(2,'0');
+schedulePlace.innerText = '場所' + '\n' + docRef_data.data()['schedule-place']
 
 info.appendChild(scheduleName);
+info.appendChild(schedulebr2);
 info.appendChild(scheduleInfo);
 timePlace.appendChild(scheduleTime);
+timePlace.appendChild(schedulebr1);
 timePlace.appendChild(schedulePlace);
+
+
 
 
 // 行を追加する関数を定義します

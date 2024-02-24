@@ -11,6 +11,8 @@ const login_ui = document.getElementById('login-right');
 const logined_elem = document.getElementById('logined');
 const logouted_elem = document.getElementById('logouted');
 
+const username_elem = document.getElementById('username-display');
+
 const circles_wrapper = document.getElementById("circles-wrapper");
 const circles = document.getElementById("circles");
 
@@ -25,6 +27,8 @@ onAuthStateChanged(auth, (user)=>{
     //ログイン済み
     if(user)
     {
+        console.log(user.displayName);
+        username_elem.innerText = "User : " + user.displayName;
         //ログイン用のUIを消す＋通常のUIを表示
         login_ui.style.display = "none";
         logined_elem.style.display = "block";
